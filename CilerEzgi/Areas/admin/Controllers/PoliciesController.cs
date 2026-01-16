@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CilerEzgi.Data;
 using CilerEzgi.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CilerEzgi.Areas.admin.Controllers
 {
-    [Area("admin")]
+    [Area("admin"),Authorize]
     public class PoliciesController : Controller
     {
         private readonly DatabaseContext _context;
@@ -98,7 +99,24 @@ namespace CilerEzgi.Areas.admin.Controllers
             {
                 try
                 {
-                    _context.Update(policies);
+                    // 1. ADIM: Veritabanındaki gerçek kaydı ID ile çekiyoruz.
+                    // Bu işlem kaydı 'Track' (takip) durumuna alır, yani hata vermez.
+                    var existingPolicy = await _context.Policies.FindAsync(id);
+
+                    if (existingPolicy == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // 2. ADIM: Formdan gelen verileri (policies), veritabanı nesnesine (existingPolicy) aktarıyoruz.
+                    existingPolicy.Title = policies.Title;
+                    existingPolicy.Description = policies.Description;
+                    existingPolicy.Slug = policies.Slug;
+                    // Id'yi değiştirmemize gerek yok.
+
+                    // 3. ADIM: _context.Update() kullanmanıza GEREK YOKTUR.
+                    // EF Core, existingPolicy üzerindeki değişiklikleri otomatik algılar.
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

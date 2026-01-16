@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CilerEzgi.Data;
 using CilerEzgi.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CilerEzgi.Areas.admin.Controllers
 {
-    [Area("admin")]
+    [Area("admin"),Authorize]
     public class WhyChooseUsController : Controller
     {
         private readonly DatabaseContext _context;

@@ -1,6 +1,7 @@
 using CilerEzgi.Data;
 using CilerEzgi.Entities;
 using CilerEzgi.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,22 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(x =>
+    {
+        x.LoginPath = "/Admin/Login";
+        x.AccessDeniedPath = "/AccessDenied";
+        x.LogoutPath = "/Admin/Logout";
+        x.Cookie.Name = "Admin";
+        x.Cookie.MaxAge = TimeSpan.FromDays(10);
+        x.ExpireTimeSpan = TimeSpan.FromHours(3); // ?? 1 saat oturum süresi
+        x.SlidingExpiration = true; // ?? Her iþlemde süre yenilenir
+        x.Cookie.IsEssential = true;
+        x.Cookie.SameSite = SameSiteMode.Lax; // ?? None yerine Lax önerilir
+        x.Cookie.HttpOnly = true;
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,7 +61,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllerRoute(
            name: "areas",
            pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}"

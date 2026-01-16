@@ -1,6 +1,7 @@
 ﻿using CilerEzgi.Data;
 using CilerEzgi.Entities;
 using CilerEzgi.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CilerEzgi.Areas.admin.Controllers
 {
-    [Area("admin")]
+    [Area("admin"),Authorize]
     public class SiteSettingsController : Controller
     {
         private readonly DatabaseContext _context;
