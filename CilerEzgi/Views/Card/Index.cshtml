@@ -1,0 +1,845 @@
+﻿@using CilerEzgi.Entities
+@model Pricing
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <title>Ödeme | Çiler Ezgi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="57x57" href="./assets/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./assets/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./assets/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./assets/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./assets/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./assets/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/images/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="/assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/js/bootstrap.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="/assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/mediaqueries.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/custom-style.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/special-classes.css" rel="stylesheet" type="text/css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
+</head>
+
+<body>
+
+    <style>
+        /* TASARIM DEĞİŞİKLİKLERİ BURADA */
+
+        :root {
+            --theme-color-primary: #242424;
+            --theme-color-secondary: #d8947c;
+            --theme-color-text: #6b6b6b;
+            --theme-color-pale-blue: #f4f7ff;
+            --theme-color-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Karla', sans-serif;
+            color: var(--theme-color-text);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            color: var(--theme-color-primary);
+        }
+
+        .checkout_section {
+            padding: 100px 0;
+            background-color: var(--theme-color-pale-blue);
+        }
+
+        /* Kart ve Kutu Stilleri */
+        .selected-package-card,
+        .billing-details-box {
+            background: var(--theme-color-white);
+            padding: 40px;
+            border-radius: 35px 0 35px 0;
+            border: none;
+            box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .selected-package-card:hover,
+            .billing-details-box:hover {
+                transform: translateY(-5px);
+            }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--theme-color-primary);
+            border-bottom: 2px solid var(--theme-color-secondary);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* Paket Görselleri */
+        .package-img {
+            width: 90px;
+            height: 90px;
+            background-color: #fff0eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 2px solid var(--theme-color-secondary);
+        }
+
+            .package-img img {
+                max-width: 60%;
+                max-height: 60%;
+                object-fit: contain;
+            }
+
+        .badge-custom {
+            background-color: var(--theme-color-secondary);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 15px 0 15px 0;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .package-features {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+            .package-features li {
+                font-size: 15px;
+                color: var(--theme-color-text);
+            }
+
+                .package-features li i {
+                    color: var(--theme-color-secondary);
+                    margin-right: 6px;
+                }
+
+        .price-tag {
+            color: var(--theme-color-secondary);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 36px;
+            margin-bottom: 0;
+        }
+
+        .change-pack-btn {
+            font-size: 14px;
+            color: var(--theme-color-text);
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+            .change-pack-btn:hover {
+                color: var(--theme-color-secondary);
+            }
+
+        /* Form Elemanları */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                font-weight: 600;
+                font-size: 15px;
+                color: var(--theme-color-primary);
+                margin-bottom: 8px;
+                display: block;
+            }
+
+        .custom-input {
+            height: 50px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            padding: 0 20px;
+            background-color: #ffffff;
+            font-family: 'Karla', sans-serif;
+            color: var(--theme-color-text);
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+            .custom-input:focus {
+                border-color: var(--theme-color-secondary);
+                box-shadow: 0 0 0 4px rgba(216, 148, 124, 0.1);
+                outline: none;
+            }
+
+        textarea.custom-input {
+            height: auto;
+            padding-top: 15px;
+        }
+
+        /* Kredi Kartı Görseli */
+        .payment-card-wrapper {
+            position: sticky;
+            top: 20px;
+        }
+
+        .credit-card-visual {
+            background: linear-gradient(135deg, #242424 0%, #4a4a4a 100%);
+            padding: 30px;
+            border-radius: 35px 0 35px 0;
+            color: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .card-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            height: 45px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+            .card-input::placeholder {
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            .card-input:focus {
+                background: rgba(255, 255, 255, 0.2);
+                border-color: var(--theme-color-secondary);
+                color: #fff;
+                box-shadow: none;
+            }
+
+        .input-group-text {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: none;
+            color: #fff;
+        }
+
+        /* Ödeme Butonu */
+        .btn-pay {
+            background-color: var(--theme-color-secondary);
+            color: #fff;
+            font-weight: 500;
+            padding: 18px;
+            border-radius: 35px 0 35px 0;
+            font-size: 18px;
+            transition: all 0.3s ease-in-out;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+            .btn-pay:before {
+                display: block;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                height: 100%;
+                width: 0px;
+                z-index: -1;
+                content: '';
+                color: var(--theme-color-secondary);
+                background-color: var(--theme-color-white);
+                transition: all 0.4s cubic-bezier(0.12, 0, 0.38, 1) 0s;
+            }
+
+            .btn-pay:hover {
+                color: var(--theme-color-secondary);
+                transform: translateY(-3px);
+            }
+
+                .btn-pay:hover:before {
+                    left: 0%;
+                    right: auto;
+                    width: 100%;
+                }
+
+        /* Responsive Düzeltmeler */
+        @@media (max-width: 768px) {
+            .selected-package-card .d-flex {
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+
+            .package-img {
+                margin-bottom: 15px;
+            }
+
+            .package-content {
+                padding-left: 0 !important;
+                margin-bottom: 15px;
+            }
+
+            .package-price {
+                width: 100%;
+                border-top: 1px solid #eee;
+                padding-top: 15px;
+                text-align: left !important;
+            }
+
+            .payment-card-wrapper {
+                margin-top: 30px;
+            }
+        }
+
+        /* Validasyon Hata Mesajları için Stil */
+        .field-validation-error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+
+    <div class="sub-banner-section">
+        <header>
+            <div class="main_header">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg navbar-light p-0">
+                        <a class="navbar-brand" href="#home">
+                            <figure class="mb-0">
+                                <img src="@Url.Content("~/img/" + DataRequestModel.SiteSetting.Logo)" alt="">
+                            </figure>
+                        </a>
+                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Anasayfa</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Hakkımızda</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Hizmetlerimiz</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Ne Biz?</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Paketler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link contact_us" asp-controller="Home" asp-action="Index">İletişim</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <section class="banner-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="banner-section-content">
+                            <h1 data-aos="fade-up" style="color:#fff">Ödeme</h1>
+                            <p data-aos="fade-right">Siparişinizi güvenle oluşturabilirsiniz.</p>
+                            <div class="btn_wrapper" style="background-color:unset !important;">
+                                <span class="sub_home_span">Anasayfa </span><i class="fa-solid fa-angles-right" aria-hidden="true"></i><span class="sub_span"> Ödeme</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="checkout_section">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12" data-aos="fade-down">
+                    <div class="selected-package-card">
+                        <div class="d-flex align-items-center flex-wrap">
+                            <div class="package-img me-4">
+                                <i class="fa-solid fa-gift fa-2x" style="color: var(--theme-color-secondary);"></i>
+                            </div>
+
+                            <div class="package-content flex-grow-1 ps-md-4 ps-0">
+                                <span class="badge-custom">Seçilen Paket</span>
+                                <h3 class="mt-2">@Model.Title</h3>
+                                <ul class="package-features">
+                                    <li><i class="fa-solid fa-check"></i> Güvenli Ödeme Altyapısı</li>
+                                    <li><i class="fa-solid fa-check"></i> Anında Randevu Oluşturma</li>
+                                    <li><i class="fa-solid fa-check"></i> %100 Memnuniyet Odaklı</li>
+                                </ul>
+                            </div>
+                            <div class="package-price text-md-end text-start mt-md-0 mt-3">
+                                <p class="text-muted mb-0"><small>Toplam Tutar</small></p>
+                                <h2 class="price-tag">₺@Model.Price<small style="font-size: 20px">,00</small></h2>
+                                <a asp-controller="Home" asp-action="Index" asp-fragment="pricing" class="change-pack-btn">
+                                    <i class="fa-solid fa-pen"></i> Değiştir
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="paymentForm">
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 mb-4" data-aos="fade-up">
+                        <div class="billing-details-box">
+                            <h3 class="section-title"><i class="fa-solid fa-user-shield"></i> Fatura & Kişisel Bilgiler</h3>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Adınız</label>
+                                        <input type="text" name="Name" class="form-control custom-input" placeholder="Örn: Ahmet" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Soyadınız</label>
+                                        <input type="text" name="Surname" class="form-control custom-input" placeholder="Örn: Yılmaz" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>E-posta</label>
+                                        <input type="email" name="Email" class="form-control custom-input" placeholder="mail@ornek.com" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Telefon</label>
+                                        <input type="tel" name="Phone" class="form-control custom-input" placeholder="05XX XXX XX XX" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>TC Kimlik Numarası</label>
+                                        <input type="text" name="IdentificationNumber" class="form-control custom-input" placeholder="11 haneli TC No" maxlength="11" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>İl</label>
+                                        <select name="city" class="form-control custom-input">
+                                            <option value="">Seçiniz...</option>
+                                            <option value="adana">Adana</option>
+                                            <option value="adiyaman">Adıyaman</option>
+                                            <option value="afyonkarahisar">Afyonkarahisar</option>
+                                            <option value="agri">Ağrı</option>
+                                            <option value="amasya">Amasya</option>
+                                            <option value="ankara">Ankara</option>
+                                            <option value="antalya">Antalya</option>
+                                            <option value="artvin">Artvin</option>
+                                            <option value="aydin">Aydın</option>
+                                            <option value="balikesir">Balıkesir</option>
+                                            <option value="bilecik">Bilecik</option>
+                                            <option value="bingol">Bingöl</option>
+                                            <option value="bitlis">Bitlis</option>
+                                            <option value="bolu">Bolu</option>
+                                            <option value="burdur">Burdur</option>
+                                            <option value="bursa">Bursa</option>
+                                            <option value="canakkale">Çanakkale</option>
+                                            <option value="cankiri">Çankırı</option>
+                                            <option value="corum">Çorum</option>
+                                            <option value="denizli">Denizli</option>
+                                            <option value="diyarbakir">Diyarbakır</option>
+                                            <option value="edirne">Edirne</option>
+                                            <option value="elazig">Elazığ</option>
+                                            <option value="erzincan">Erzincan</option>
+                                            <option value="erzurum">Erzurum</option>
+                                            <option value="eskisehir">Eskişehir</option>
+                                            <option value="gaziantep">Gaziantep</option>
+                                            <option value="giresun">Giresun</option>
+                                            <option value="gumushane">Gümüşhane</option>
+                                            <option value="hakkari">Hakkâri</option>
+                                            <option value="hatay">Hatay</option>
+                                            <option value="isparta">Isparta</option>
+                                            <option value="mersin">Mersin</option>
+                                            <option value="istanbul">İstanbul</option>
+                                            <option value="izmir">İzmir</option>
+                                            <option value="kars">Kars</option>
+                                            <option value="kastamonu">Kastamonu</option>
+                                            <option value="kayseri">Kayseri</option>
+                                            <option value="kirklareli">Kırklareli</option>
+                                            <option value="kirsehir">Kırşehir</option>
+                                            <option value="kocaeli">Kocaeli</option>
+                                            <option value="konya">Konya</option>
+                                            <option value="kutahya">Kütahya</option>
+                                            <option value="malatya">Malatya</option>
+                                            <option value="manisa">Manisa</option>
+                                            <option value="kahramanmaras">Kahramanmaraş</option>
+                                            <option value="mardin">Mardin</option>
+                                            <option value="mugla">Muğla</option>
+                                            <option value="mus">Muş</option>
+                                            <option value="nevsehir">Nevşehir</option>
+                                            <option value="nigde">Niğde</option>
+                                            <option value="ordu">Ordu</option>
+                                            <option value="rize">Rize</option>
+                                            <option value="sakarya">Sakarya</option>
+                                            <option value="samsun">Samsun</option>
+                                            <option value="siirt">Siirt</option>
+                                            <option value="sinop">Sinop</option>
+                                            <option value="sivas">Sivas</option>
+                                            <option value="tekirdag">Tekirdağ</option>
+                                            <option value="tokat">Tokat</option>
+                                            <option value="trabzon">Trabzon</option>
+                                            <option value="tunceli">Tunceli</option>
+                                            <option value="sanliurfa">Şanlıurfa</option>
+                                            <option value="usak">Uşak</option>
+                                            <option value="van">Van</option>
+                                            <option value="yozgat">Yozgat</option>
+                                            <option value="zonguldak">Zonguldak</option>
+                                            <option value="aksaray">Aksaray</option>
+                                            <option value="bayburt">Bayburt</option>
+                                            <option value="karaman">Karaman</option>
+                                            <option value="kirikkale">Kırıkkale</option>
+                                            <option value="batman">Batman</option>
+                                            <option value="sirnak">Şırnak</option>
+                                            <option value="bartin">Bartın</option>
+                                            <option value="ardahan">Ardahan</option>
+                                            <option value="igdir">Iğdır</option>
+                                            <option value="yalova">Yalova</option>
+                                            <option value="karabuk">Karabük</option>
+                                            <option value="kilis">Kilis</option>
+                                            <option value="osmaniye">Osmaniye</option>
+                                            <option value="duzce">Düzce</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>İlçe</label>
+                                        <input type="text" name="District" class="form-control custom-input" placeholder="Örn: Kadıköy">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Açık Adres</label>
+                                        <textarea name="Address" rows="3" class="form-control custom-input" placeholder="Mahalle, Sokak, Kapı No..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 col-md-12" data-aos="fade-left">
+                        <div class="payment-card-wrapper">
+                            <div class="credit-card-visual">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="text-white mb-0">Kart Bilgileri</h4>
+                                    <i class="fa-brands fa-cc-mastercard fa-2x text-white-50" id="cardBrandIcon"></i>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label class="text-white-50 small">Kart Numarası</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fa-regular fa-credit-card"></i></span>
+                                        <input type="text" name="CardNumber" class="form-control card-input" placeholder="0000 0000 0000 0000" maxlength="19">
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label class="text-white-50 small">Kart Üzerindeki İsim</label>
+                                    <input type="text" name="CardHolderName" class="form-control card-input" placeholder="AD SOYAD">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group mb-3">
+                                            <label class="text-white-50 small">Son K. Tarihi</label>
+                                            <input type="text" name="ExpirationDate" class="form-control card-input" placeholder="AA/YY" maxlength="5">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group mb-3">
+                                            <label class="text-white-50 small">CVV / CVC</label>
+                                            <input type="text" name="CVV" class="form-control card-input" placeholder="123" maxlength="3">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="total-area mt-4">
+                                    <div class="d-flex justify-content-between text-white mb-2">
+                                        <span>Toplam Tutar:</span>
+                                        <span class="fw-bold">₺@Model.Price</span>
+                                    </div>
+                                    <button type="submit" id="btnPay" class="btn btn-pay w-100">
+                                        <i class="fa-solid fa-lock"></i> Güvenli Öde
+                                    </button>
+                                    <p class="text-center text-white-50 mt-2 small" style="font-size: 11px;">
+                                        <i class="fa-solid fa-shield-halved"></i> Ödemeniz 256-bit SSL ile korunmaktadır.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="subscribe_section">
+        <div class="container">
+            <div class="subscribe_background_image">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12" data-aos="fade-right">
+                        <div class="subscribe_content">
+                            <h5>Abone Ol</h5>
+                            <h2>Bültenimize abone olun.</h2>
+                            <form method="POST">
+                                <div class="form-row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <input type="email" name="email" id="emailadd" class="form-control" placeholder="E-mail">
+                                        <button type="submit" name="btnsubmit" id="submitbutton">Abone Ol</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                        <figure class="subscribe_image mb-0">
+                            <img src="@Url.Content("~/img/subs.png")" alt="" />
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer-section" id="footer_section">
+        <div class="container">
+            <div class="middle-portion">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-lg-block d-none">
+                        <div class="footer_logo">
+                            <a href="./index.html" class="text-decoration-none">
+                                <figure class="mb-0">
+                                    <img src="@Url.Content("~/img/" + DataRequestModel.SiteSetting.Logo)" alt="">
+                                </figure>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="about_col">
+                            <h4>Çiler Ezgi</h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <p>Bireyin iç dünyasını anlamasına, zihinsel yüklerinden arınmasına ve kendisiyle daha derin bir bağ kurmasına rehberlik eder.</p>
+                                </li>
+                                <li class="icons"><a href="@DataRequestModel.SiteSetting.Instagram" target="_blank"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                                <li class="icons"><a href="@DataRequestModel.SiteSetting.YouTube" target="_blank"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a></li>
+                                <li class="icons"><a href="@DataRequestModel.SiteSetting.Facebook" target="_blank"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-md-block d-none">
+                        <div class="links_col">
+                            <h4>Politikalar</h4>
+                            <ul class="list-unstyled">
+                                @foreach (var item in DataRequestModel.Policies)
+                                {
+                                    <li>
+                                        <a asp-controller="Policies" asp-action="Index" asp-route-slug="@item.Slug">@item.Title</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-sm-block d-none">
+                        <div class="contact_col">
+                            <h4>İletişim Bilgileri</h4>
+                            <ul class="list-unstyled">
+                                <li class="contact_icons">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:@DataRequestModel.SiteSetting.Phone" class="text-decoration-none">@DataRequestModel.SiteSetting.Phone</a>
+                                </li>
+                                <li class="contact_icons">
+                                    <i class="fa-sharp fa-solid fa-envelope"></i>
+                                    <a href="mailto:@DataRequestModel.SiteSetting.Email" class="text-decoration-none">@DataRequestModel.SiteSetting.Email</a>
+                                </li>
+                                <li class="mb-0">
+                                    <i class="fa-solid fa-location-dot location"></i>
+                                    <span>@DataRequestModel.SiteSetting.Address</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-portion">
+            <div class="copyright col-xl-12">
+                <p>Copyright 2026, İdeio Creative All Rights Reserved.</p>
+            </div>
+        </div>
+        <div class="footer_shape right_shape">
+            <figure class="mb-0"><img src="./assets/images/footer_shape.png" alt="" class="img-fluid"></figure>
+        </div>
+    </section>
+
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/video-popup.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/assets/js/video-section.js"></script>
+    <script src="/assets/js/animation.js"></script>
+    <script src="https://unpkg.com/ityped@0.0.10"></script>
+    <script src="/assets/js/type.js"></script>
+
+    <script>
+        // --- 1. AJAX FORM GÖNDERİMİ VE SUNUCU CEVAP KONTROLÜ (jQuery) ---
+        $(document).ready(function () {
+            $("#paymentForm").on("submit", function (e) {
+                e.preventDefault(); // Sayfanın yenilenmesini engelle
+
+                // Not: Model Validasyonları sunucuda yapılacağı için burada manuel JS kontrolü yapmıyoruz.
+                // Veriler sunucuya gider, hatalıysa cevap döner ve ekrana basarız.
+
+                // Butonu pasife al ve yükleniyor animasyonu ekle
+                var btn = $("#btnPay");
+                var originalText = btn.html();
+                btn.prop("disabled", true).html('<i class="fa-solid fa-spinner fa-spin"></i> İşleniyor...');
+
+                // Form verilerini al
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Pay/Index", // Controller/Action adresi
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            // Başarılı işlem
+                            alert("Ödeme işleminiz başarıyla alındı! Teşekkürler.");
+                            // window.location.href = "/Home/Success";
+                        } else {
+                            // Backend'den (Model Validasyonundan) hata dönerse
+                            var errorMsg = response.message;
+                            if (response.errors && response.errors.length > 0) {
+                                errorMsg += "\n\n- " + response.errors.join("\n- ");
+                            }
+                            alert("Lütfen aşağıdaki hataları düzeltin:\n" + errorMsg);
+                        }
+                    },
+                    error: function (err) {
+                        alert("Sunucu ile iletişim kurulurken bir hata oluştu.");
+                        console.log(err);
+                    },
+                    complete: function () {
+                        // İşlem bitince butonu eski haline getir
+                        btn.prop("disabled", false).html(originalText);
+                    }
+                });
+            });
+        });
+
+        // --- 2. GÖRSEL FORMATLAMA VE KISITLAMALAR (UX İçin Gerekli - Validasyon Değil) ---
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Seçiciler
+            const cardNumberInput = document.querySelector('input[name="CardNumber"]');
+            const cardHolderInput = document.querySelector('input[name="CardHolderName"]');
+            const expiryInput = document.querySelector('input[name="ExpirationDate"]');
+            const cvvInput = document.querySelector('input[name="CVV"]');
+            const firstNameInput = document.querySelector('input[name="Name"]');
+            const lastNameInput = document.querySelector('input[name="Surname"]');
+            const identificationInput = document.querySelector('input[name="IdentificationNumber"]');
+            const cardIcon = document.querySelector('#cardBrandIcon');
+
+            // --- A. KART NUMARASI (Boşluk Ekleme ve Logo) ---
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, ''); // Sadece rakamları al
+                    e.target.value = value.replace(/(.{4})/g, '$1 ').trim(); // 4 hanede bir boşluk
+
+                    // Logo Değişimi
+                    if (cardIcon) {
+                        cardIcon.className = "fa-brands fa-2x text-white-50"; // Reset
+                        if (value.startsWith("4")) {
+                            cardIcon.classList.add("fa-cc-visa");
+                        } else if (value.match(/^5[1-5]/) || value.match(/^2[2-7]/)) {
+                            cardIcon.classList.add("fa-cc-mastercard");
+                        } else if (value.match(/^3[47]/)) {
+                            cardIcon.classList.add("fa-cc-amex");
+                        } else {
+                            cardIcon.classList.add("fa-cc-mastercard");
+                        }
+                    }
+                });
+            }
+
+            // --- B. SADECE HARF GİRİŞİ (İsim Alanları) ---
+            function onlyLetters(e) {
+                e.target.value = e.target.value.replace(/[^a-zA-ZğüşıöçĞÜŞİÖÇ\s]/g, '');
+            }
+            if (cardHolderInput) cardHolderInput.addEventListener('input', onlyLetters);
+            if (firstNameInput) firstNameInput.addEventListener('input', onlyLetters);
+            if (lastNameInput) lastNameInput.addEventListener('input', onlyLetters);
+
+            // --- C. SADECE RAKAM (CVV ve TC) ---
+            if (cvvInput) {
+                cvvInput.addEventListener('input', function (e) {
+                    e.target.value = e.target.value.replace(/\D/g, '');
+                });
+            }
+            if (identificationInput) {
+                identificationInput.addEventListener('input', function (e) {
+                    e.target.value = e.target.value.replace(/\D/g, '');
+                });
+            }
+
+            // --- D. TARİH FORMATI (AA/YY) ---
+            if (expiryInput) {
+                expiryInput.addEventListener('input', function (e) {
+                    let input = e.target.value.replace(/\D/g, '');
+                    if (input.length > 2) {
+                        input = input.substring(0, 2) + '/' + input.substring(2, 4);
+                    }
+                    e.target.value = input;
+                });
+                // Backspace tuşuna basıldığında düzgün silme için
+                expiryInput.addEventListener('keydown', function (e) {
+                    if (e.key === "Backspace" && this.value.length === 3) {
+                        this.value = this.value.substring(0, 2);
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+﻿@model HomePageViewModel
+@{
+    ViewData["Title"] = "Anasayfa";
+}
+
+<!-- ABOUT US SECTION -->
+<section class="aboutus_section" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                <div class="aboutus_image">
+                    <figure class="mb-0"><img src="./img/@Model.About.Image" alt="" class="img-fluid"></figure>
+                </div>
+              @*   <figure class="aboutus_top_shape left_shape mb-0">
+                    <img src="./assets/images/aboutus_top_shape.png" alt="" class="img-fluid">
+                </figure>
+                <figure class="aboutus_bottom_shape left_shape mb-0">
+                    <img src="./assets/images/aboutus_bottom_shape.png" alt="" class="img-fluid">
+                </figure> *@
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" data-aos="fade-right">
+                <div class="aboutus_content">
+                    <h5>@Model.About.Title</h5>
+                    @Html.Raw(Model.About.Description)
+                    <div class="btn_wrapper">
+                        <a href="#contact" class="text-decoration-none get_started_btn">Hadi Başlayalım</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- OUR SERVICES SECTION -->
+<section class="services_section" id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="services_content">
+                    <h5>Çalışma Alanları</h5>
+                    <h2>Yoga ve Bütünsel Egzersiz</h2>
+                    <p>Beden, zihin ve nefesi bir araya getiren yoga ve bütünsel egzersiz çalışmalarıyla dengeli ve farkındalıklı bir yaşam alanı.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+
+            @foreach(var service in Model.Services)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="services_box_content">
+                        <div class="services_box_upper_portion">
+                            <figure class="mb-0">
+                                <img src="./img/@service.Image" alt="" class="img-fluid">
+                            </figure>
+                        </div>
+                        <div class="services_box_lower_portion">
+                            <h3>@service.Title</h3>
+                            <p>@service.Description</p>
+                            <div class="btn_wrapper">
+                                <a href="#services" class="text-decoration-none">
+                                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+
+            
+        </div>
+
+      @*   <figure class="services_left_shape left_shape mb-0">
+            <img src="./assets/images/services_left_shape.png" alt="" class="img-fluid">
+        </figure> *@
+    </div>
+</section>
+
+
+
+<!-- OUR SPECIALTIES SECTION -->
+<section class="our_specialties_section" id="specialties">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="our_specialties_heading_content">
+                    <h5>Uzmanlık Alanları</h5>
+                    <h2>Neden Bu Çalışmalar?</h2>
+                    <p>Yoga ve bütünsel egzersizi beden, zihin ve nefes uyumunda ele alan; sürdürülebilir ve farkındalık odaklı bir yaklaşım.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" data-aos="fade-right">
+                <div class="specialties_content_wrapper">
+                    <div class="specialties_content s1">
+                        <p class="specialties_name">Akış Yoga</p>
+                        <p class="specialties_paragraph">Bedenin ritmine uyumlanan, akıcı ve dengeli yoga pratiği.</p>
+                    </div>
+                    <div class="specialties_content s2">
+                        <p class="specialties_name">Yavaş Yoga</p>
+                        <p class="specialties_paragraph">Bedeni zorlamadan derinleşmeye alan açan çalışmalar.</p>
+                    </div>
+                    <div class="specialties_content s3">
+                        <p class="specialties_name">Sezgisel Yoga</p>
+                        <p class="specialties_paragraph">Bedenin ihtiyacını dinleyerek şekillenen yoga yaklaşımı.</p>
+                    </div>
+                    <div class="specialties_content s4">
+                        <p class="specialties_name">Nefes Odaklı Çalışmalar</p>
+                        <p class="specialties_paragraph">Nefesle zihni sakinleştiren ve bedeni destekleyen pratikler.</p>
+                    </div>
+                    <figure class="specialties_left_line mb-0">
+                        <img src="./assets/images/specialties_left_line.png" alt="" class="img-fluid">
+                    </figure>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 d-md-block d-none">
+                <figure class="specialties_image mb-0">
+                    <img src="./img/1.png" alt="" class="img-fluid">
+                </figure>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" data-aos="fade-right">
+                <div class="specialties_content_wrapper">
+                    <div class="specialties_content specialties_content2 s5">
+                        <p class="specialties_name">Bütünsel Egzersiz</p>
+                        <p class="specialties_paragraph">Tüm bedeni kapsayan, denge ve güç odaklı egzersizler.</p>
+                    </div>
+                    <div class="specialties_content specialties_content2 s6">
+                        <p class="specialties_name">Denge & Esneklik</p>
+                        <p class="specialties_paragraph">Günlük yaşamı destekleyen esneklik ve denge çalışmaları.</p>
+                    </div>
+                    <div class="specialties_content specialties_content2 s7">
+                        <p class="specialties_name">Farkındalık Pratiği</p>
+                        <p class="specialties_paragraph">Anda kalmayı ve beden-zihin bağını güçlendiren çalışmalar.</p>
+                    </div>
+                    <div class="specialties_content specialties_content2 s8">
+                        <p class="specialties_name">Bedenle Bağ Kurma</p>
+                        <p class="specialties_paragraph">Bedeni dinlemeyi ve onunla uyumlanmayı destekleyen süreç.</p>
+                    </div>
+                    <figure class="specialties_right_line mb-0">
+                        <img src="./assets/images/specialties_right_line.png" alt="" class="img-fluid">
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+      @*   <figure class="our_specialties_right_shape right_shape mb-0">
+            <img src="./assets/images/our_specialties_right_shape.png" alt="" class="img-fluid">
+        </figure> *@
+    </div>
+</section>
+
+
+<!-- PRICING PLANS SECTION -->
+<section class="pricing_plans_section" id="pricing">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="pricing_plans_content">
+                    <h5>Paketler</h5>
+                    <h2>Yoga & Bütünsel Egzersiz Paketleri</h2>
+                    <p>İhtiyacına ve yaşam ritmine uygun, beden ve zihin dengesini destekleyen çalışma paketleri.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+            <!-- Başlangıç Paketi -->
+
+            @foreach(var item in Model.Pricings)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="pricing_plans_box_content">
+                        <div class="pricing_plans_box_upper_portion">
+                            <figure class="pricing_plans_image mb-0">
+                                <img src="./assets/images/pricing_plan_1.png" alt="" class="img-fluid">
+                            </figure>
+                            <div class="pricing_plans_box_image_content">
+                                <figure class="mb-0">
+                                    <img src="./assets/images/pricing_plan_icon_3.png" alt="" class="img-fluid">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="pricing_plans_box_lower_portion">
+                            <h3>@item.Title</h3>
+                            @Html.Raw(item.Description)
+                            <div class="pricing_plans_span_wrapper">
+                                <span class="price">₺@item.Price</span>
+                                <span class="per_month">/ay</span>
+                            </div>
+                            <div class="btn_wrapper">
+                                <a class="enroll_now_btn text-decoration-none" asp-controller="Card" asp-action="Index" asp-route-id="@item.Id">
+                                   Satın Al
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+           
+
+           
+        </div>
+    </div>
+</section>
+
+
+<!-- GET IN TOUCH SECTION -->
+<section class="get_in_touch_section mb-5" id="contact">
+    <div class="container">
+        <div class="row" data-aos="fade-up">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="get_in_touch_content">
+                    <h5>Bizimle İletişime Geçin</h5>
+                    <!-- <h2>Get a Free Consultation Now</h2> -->
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group mb-0">
+                                    <input type="text" name="name" id="fname" class="form-control" placeholder="İsim Soyisim">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group mb-0">
+                                    <input type="text" name="lname" id="lname" class="form-control form_style" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group mb-0">
+                                    <input type="tel" name="phonenum" id="phonenum" class="form-control" placeholder="Telefon">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group mb-0">
+                                    <input type="email" name="emailaddrs" id="emailaddrs" class="form-control form_style" placeholder="Konu">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class=" form-group mb-0">
+                                    <textarea rows="3" name="comment" id="msg" class="form-control" placeholder="Mesaj"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn_wrapper">
+                            <button type="submit" name="get_started" id="started">Gönder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 d-md-block d-none"></div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="get_in_touch_video position-relative">
+                    <a class="popup-vimeo" href="https://previews.customer.envatousercontent.com/6720474d-ddc3-4b86-acf1-8d093cb37b6d/watermarked_preview/watermarked_preview.mp4">
+                        <!-- <figure class="video_img mb-0">
+                            <img class="thumb img-fluid" style="cursor: pointer" src="./assets/images/get_in_touch_video_icon.png" alt="">
+                        </figure> -->
+                    </a>
+                </div>
+            </div>
+        </div>
+        <figure class="get_in_touch_shape left_shape mb-0">
+            <img src="./assets/images/get_in_touch_shape.png" alt="" class="img-fluid">
+        </figure>
+    </div>
+</section>

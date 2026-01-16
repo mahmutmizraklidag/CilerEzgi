@@ -1,0 +1,201 @@
+﻿@model IEnumerable<SiteSetting>
+
+@{
+    ViewData["Title"] = "Site Ayarları";
+    // Listeden ilk kaydı çekiyoruz, yoksa null gelir.
+    var ayar = Model.FirstOrDefault();
+}
+
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-primary mb-0">
+                <i class="bi bi-gear-wide-connected me-2"></i> Site Konfigürasyonu
+            </h2>
+            <p class="text-muted small mb-0">Genel site ayarlarını buradan görüntüleyebilir ve düzenleyebilirsiniz.</p>
+        </div>
+
+        @if (ayar == null)
+        {
+            <a asp-action="Create" class="btn btn-primary shadow-sm">
+                <i class="bi bi-plus-circle me-1"></i> Ayarları Oluştur
+            </a>
+        }
+        else
+        {
+            <div class="d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@ayar.Id" class="btn btn-warning text-white shadow-sm">
+                    <i class="bi bi-pencil-square me-1"></i> Düzenle
+                </a>
+                <a asp-action="Delete" asp-route-id="@ayar.Id" class="btn btn-outline-danger shadow-sm">
+                    <i class="bi bi-trash me-1"></i> Sil
+                </a>
+            </div>
+        }
+    </div>
+
+    @if (ayar != null)
+    {
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                        <h5 class="fw-bold text-dark"><i class="bi bi-image me-2 text-info"></i>Logo & Genel</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="mb-3 p-3 border rounded bg-light d-inline-block" style="background-color:rgb(76 141 205) !important;">
+                            @if (!string.IsNullOrEmpty(ayar.Logo))
+                            {
+                                <img src="/img/@ayar.Logo" alt="Site Logo" class="img-fluid" style="max-height: 80px;">
+                            }
+                            else
+                            {
+                                <span class="text-muted"><i class="bi bi-image-alt"></i> Logo Yok</span>
+                            }
+                        </div>
+                        <ul class="list-group list-group-flush text-start">
+                           
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="text-muted">ID:</span>
+                                <span class="fw-semibold">#@ayar.Id</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-white border-bottom-0 pt-4">
+                        <h5 class="fw-bold text-dark"><i class="bi bi-telephone me-2 text-success"></i>İletişim Bilgileri</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="text-muted small">Telefon</label>
+                                <div class="fw-bold">@ayar.Phone</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="text-muted small">E-Posta</label>
+                                <div class="fw-bold">@ayar.Email</div>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label class="text-muted small">Adres</label>
+                                <div>@ayar.Address</div>
+                            </div>
+                            <div class="col-12">
+                                <label class="text-muted small">Harita Linki</label>
+                                <div class="text-truncate"><a href="@ayar.mapLink" target="_blank">@ayar.mapLink</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-white border-bottom-0 pt-4">
+                        <h5 class="fw-bold text-dark"><i class="bi bi-share me-2 text-primary"></i>Sosyal Medya</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-column gap-2">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-facebook text-primary me-2 fs-5"></i>
+                                <span>@(string.IsNullOrEmpty(ayar.Facebook) ? "-" : ayar.Facebook)</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-instagram text-danger me-2 fs-5"></i>
+                                <span>@(string.IsNullOrEmpty(ayar.Instagram) ? "-" : ayar.Instagram)</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-twitter text-info me-2 fs-5"></i>
+                                <span>@(string.IsNullOrEmpty(ayar.Twitter) ? "-" : ayar.Twitter)</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-linkedin text-primary me-2 fs-5"></i>
+                                <span>@(string.IsNullOrEmpty(ayar.LinkedIn) ? "-" : ayar.LinkedIn)</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-youtube text-danger me-2 fs-5"></i>
+                                <span>@(string.IsNullOrEmpty(ayar.YouTube) ? "-" : ayar.YouTube)</span>
+                            </div>
+                        </div>
+                        @if (!string.IsNullOrEmpty(ayar.YouTubeLink))
+                        {
+                            <div class="mt-3 pt-3 border-top">
+                                <small class="text-muted">Tanıtım Videosu:</small><br>
+                                <a href="@ayar.YouTubeLink" target="_blank" class="text-truncate d-block">@ayar.YouTubeLink</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-white border-bottom-0 pt-4">
+                        <h5 class="fw-bold text-dark"><i class="bi bi-google me-2 text-warning"></i>SEO Ayarları</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="text-muted small">Meta Title</label>
+                            <div class="fw-bold">@ayar.MetaTitle</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="text-muted small">Meta Description</label>
+                            <div class="fst-italic text-secondary">"@ayar.MetaDescription"</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="text-muted small">Meta Keywords</label>
+                            <div>
+                                @if (!string.IsNullOrEmpty(ayar.Keywords))
+                                {
+                                    foreach (var key in ayar.Keywords.Split(','))
+                                    {
+                                        <span class="badge bg-light text-dark border me-1">@key</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-light border-bottom-0 pt-3">
+                        <h6 class="fw-bold text-secondary mb-0"><i class="bi bi-server me-2"></i>SMTP E-Posta Yapılandırması (Gizli Bilgi)</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="text-muted small d-block">SMTP Server</label>
+                                <code class="fs-6">@ayar.SmtpServer</code>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="text-muted small d-block">Port</label>
+                                <code class="fs-6">@ayar.SmtpPort</code>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="text-muted small d-block">Gönderen Email</label>
+                                <span class="fw-semibold">@ayar.SmtpEmail</span>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="text-muted small d-block">Şifre</label>
+                                <span class="text-muted">********</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            Henüz bir site ayarı yapılandırılmamış.
+        </div>
+    }
+</div>

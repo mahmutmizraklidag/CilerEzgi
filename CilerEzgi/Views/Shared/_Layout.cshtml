@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>Çiler Ezgi BAYKAN</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="@Url.Content("~/assets/images/favicon/apple-icon-57x57.png")">
+    <link rel="apple-touch-icon" sizes="60x60" href="@Url.Content("~/assets/images/favicon/apple-icon-60x60.png")">
+    <link rel="apple-touch-icon" sizes="72x72" href="@Url.Content("~/assets/images/favicon/apple-icon-72x72.png")">
+    <link rel="apple-touch-icon" sizes="76x76" href="@Url.Content("~/assets/images/favicon/apple-icon-76x76.png")">
+    <link rel="apple-touch-icon" sizes="114x114" href="@Url.Content("~/assets/images/favicon/apple-icon-114x114.png")">
+    <link rel="apple-touch-icon" sizes="120x120" href="@Url.Content("~/assets/images/favicon/apple-icon-120x120.png")">
+    <link rel="apple-touch-icon" sizes="144x144" href="@Url.Content("~/assets/images/favicon/apple-icon-144x144.png")">
+    <link rel="apple-touch-icon" sizes="152x152" href="@Url.Content("~/assets/images/favicon/apple-icon-152x152.png")">
+    <link rel="apple-touch-icon" sizes="180x180" href="@Url.Content("~/assets/images/favicon/apple-icon-180x180.png")">
+
+    <link rel="icon" type="image/png" sizes="192x192" href="@Url.Content("~/assets/images/favicon/android-icon-192x192.png")">
+    <link rel="icon" type="image/png" sizes="32x32" href="@Url.Content("~/assets/images/favicon/favicon-32x32.png")">
+    <link rel="icon" type="image/png" sizes="96x96" href="@Url.Content("~/assets/images/favicon/favicon-96x96.png")">
+    <link rel="icon" type="image/png" sizes="16x16" href="@Url.Content("~/assets/images/favicon/favicon-16x16.png")">
+
+    <link rel="manifest" href="@Url.Content("~/assets/images/favicon/manifest.json")">
+
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="@Url.Content("~/ms-icon-144x144.png")">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Bootstrap -->
+    <link href="@Url.Content("~/assets/bootstrap/bootstrap.min.css")" rel="stylesheet">
+
+    <!-- Font Awesome (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link href="@Url.Content("~/assets/css/style.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/assets/css/mediaqueries.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/assets/css/custom-style.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/assets/css/special-classes.css")" rel="stylesheet" type="text/css">
+
+    <!-- AOS (CDN) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Magnific Popup (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
+</head>
+
+<body>
+    <div class="banner-section-outer">
+        <header>
+            <div class="main_header">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg navbar-light p-0">
+                        <a class="navbar-brand" href="#home"><figure class="mb-0"><img src="./img/@DataRequestModel.SiteSetting.Logo" alt=""></figure></a>
+                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#home">Anasayfa</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#about">Hakkımızda</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#services">Hizmetlerimiz</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#specialties">Ne Biz?</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#pricing">Paketler</a>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link contact_us" href="#contact">İletişim</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!-- SOCIAL ICONS -->
+        <div class="left_icons float-left d-table" data-aos="fade-down">
+            <div class="icon_content d-table-cell align-middle">
+                <ul class="list-unstyled p-0 m-0">
+                    <li>
+                        <a href="@DataRequestModel.SiteSetting.Instagram" target="_blank"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="@DataRequestModel.SiteSetting.YouTube" target="_blank"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="@DataRequestModel.SiteSetting.Facebook" target="_blank"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- BANNER SECTION -->
+        <section class="banner-section" id="home">
+            <div class="container-fluid">
+                <div class="row" data-aos="fade-up">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-md-left text-center">
+                        <div class="banner-section-content">
+                            <h5>Mutlu Bir Hayata Başla</h5>
+                            <h1 data-aos="fade-up">Zihninizi İyileştirmeye Başlayın, <span class="ityped"></span></h1>
+                            <!-- <p data-aos="fade-right">Duis aute irure dolor in reprehenderit in volurate velit cillum nulla pariatur nostrud exercitation.</p> -->
+                            <div class="btn_wrapper" data-aos="fade-up">
+                                <a class="text-decoration-none getstarted_btn" href="#contact">Hadi Başlayalım</a>
+                            </div>
+                            <a class="top-btn" href="#footer_section">
+                                <i class="fa-solid fa-arrow-down-long"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="banner-section-image">
+                            <figure class="mb-0">
+                                <img src="./img/banner.png" alt="">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+              @*   <figure class="banner_left_top_shape left_shape mb-0">
+                    <img src="./assets/images/banner_left_top_shape.png" alt="" class="img-fluid">
+                </figure>
+                <figure class="banner_left_bottom_shape left_shape mb-0">
+                    <img src="./assets/images/banner_left_bottom_shape.png" alt="" class="img-fluid">
+                </figure>
+                <figure class="banner_right_top_shape right_shape mb-0">
+                    <img src="./assets/images/banner_right_top_shape.png" alt="" class="img-fluid">
+                </figure>
+                <figure class="banner_right_bottom_shape right_shape mb-0">
+                    <img src="./assets/images/banner_right_bottom_shape.png" alt="" class="img-fluid">
+                </figure> *@
+            </div>
+        </section>
+    </div>
+   
+            @RenderBody()
+     <!-- SUBSCRIBE SECTION -->
+    <section class="subscribe_section">
+        <div class="container">
+            <div class="subscribe_background_image">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12" data-aos="fade-right">
+                        <div class="subscribe_content">
+                            <h5>Abone Ol</h5>
+                            <h2>Bültenimize abone olun.</h2>
+                            <form method="POST">
+                                <div class="form-row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <input type="email" name="email" id="emailadd" class="form-control" placeholder="E-mail">
+                                        <button type="submit" name="btnsubmit" id="submitbutton">Abone Ol</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                        <figure class="subscribe_image mb-0">
+                            <img src="./img/subs.png" alt="">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER SECTION -->
+    <section class="footer-section" id="footer_section">
+        <div class="container">
+            <div class="middle-portion">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-lg-block d-none">
+                        <div class="footer_logo">
+                            <a href="./index.html" class="text-decoration-none"><figure class="mb-0"><img src="./img/@DataRequestModel.SiteSetting.Logo" alt="" class="img-fluid"></figure></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="about_col">
+                            <h4>Çiler Ezgi</h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <p>Bireyin iç dünyasını anlamasına, zihinsel yüklerinden arınmasına ve kendisiyle daha derin bir bağ kurmasına rehberlik eder.</p>
+                                </li>
+                                <li class="icons"><a href="@DataRequestModel.SiteSetting.Instagram" target="_blank"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                                <li class="icons"><a href="@DataRequestModel.SiteSetting.YouTube" target="_blank"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a></li>
+                                <li class="icons"><a href="@DataRequestModel.SiteSetting.Facebook" target="_blank"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-md-block d-none">
+                        <div class="links_col">
+                            <h4>Politikalar</h4>
+                            <ul class="list-unstyled">
+                                @foreach(var item in DataRequestModel.Policies)
+                                {
+                                    <li>
+                                        <a asp-controller="Policies" asp-action="Index" asp-route-slug="@item.Slug">@item.Title</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-sm-block d-none">
+                        <div class="contact_col">
+                            <h4>İletişim Bilgileri</h4>
+                            <ul class="list-unstyled">
+                                <li class="contact_icons">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:@DataRequestModel.SiteSetting.Phone" class="text-decoration-none">@DataRequestModel.SiteSetting.Phone</a>
+                                </li>
+                                <li class="contact_icons">
+                                    <i class="fa-sharp fa-solid fa-envelope"></i>
+                                    <a href="mailto:@DataRequestModel.SiteSetting.Email" class="text-decoration-none">@DataRequestModel.SiteSetting.Email</a>
+                                </li>
+                                <li class="mb-0">
+                                    <i class="fa-solid fa-location-dot location"></i>
+                                    <span>@DataRequestModel.SiteSetting.Address</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-portion">
+            <div class="copyright col-xl-12">
+                <p>Copyright 2026, İdeio Creative All Rights Reserved.</p>
+            </div>
+        </div>
+        <div class="footer_shape right_shape">
+            <figure class="mb-0"><img src="./assets/images/footer_shape.png" alt="" class="img-fluid"></figure>
+        </div>
+    </section>
+   
+    <!-- JavaScript -->
+    <script src="@Url.Content("~/assets/js/jquery-3.6.0.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/popper.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/video-popup.js")"></script>
+    <script src="@Url.Content("~/assets/js/bootstrap.min.js")"></script>
+
+    <!-- AOS (CDN) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="@Url.Content("~/assets/js/video-section.js")"></script>
+    <script src="@Url.Content("~/assets/js/animation.js")"></script>
+
+    <!-- iTyped (CDN) -->
+    <script src="https://unpkg.com/ityped@0.0.10"></script>
+
+    <script src="@Url.Content("~/assets/js/type.js")"></script>
+
+</body>
+</html>
