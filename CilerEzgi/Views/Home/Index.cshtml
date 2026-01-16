@@ -219,39 +219,42 @@
                 <div class="get_in_touch_content">
                     <h5>Bizimle İletişime Geçin</h5>
                     <!-- <h2>Get a Free Consultation Now</h2> -->
-                    <form>
+                    <form action="#" id="iletisimFormu" method="post">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group mb-0">
-                                    <input type="text" name="name" id="fname" class="form-control" placeholder="İsim Soyisim">
+                                    <input type="text" name="name" id="Name" class="form-control" placeholder="İsim Soyisim">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group mb-0">
-                                    <input type="text" name="lname" id="lname" class="form-control form_style" placeholder="Email">
+                                    <input type="email" name="Email" id="Email" class="form-control form_style" placeholder="Email">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group mb-0">
-                                    <input type="tel" name="phonenum" id="phonenum" class="form-control" placeholder="Telefon">
+                                    <input type="tel" name="Phone" id="Phone" class="form-control" placeholder="Telefon">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group mb-0">
-                                    <input type="email" name="emailaddrs" id="emailaddrs" class="form-control form_style" placeholder="Konu">
+                                    <input type="text" name="Subject" id="Subject" class="form-control form_style" placeholder="Konu">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class=" form-group mb-0">
-                                    <textarea rows="3" name="comment" id="msg" class="form-control" placeholder="Mesaj"></textarea>
+                                    <textarea rows="3" name="Message" id="Message" class="form-control" placeholder="Mesaj"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="btn_wrapper">
                             <button type="submit" name="get_started" id="started">Gönder</button>
                         </div>
+                        <!-- Mesaj kutuları -->
+                        <div class="alert alert-success sent-message mt-3 text-center" style="display:none;">Mesajınız gönderildi.</div>
+                        <div class="alert alert-danger error-message mt-3 text-center" style="display:none;"></div>
                     </form>
                 </div>
             </div>
@@ -271,3 +274,39 @@
         </figure>
     </div>
 </section>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $("#iletisimFormu").submit(function (e) {
+        e.preventDefault();
+
+        var entity = {
+            Name: $("#Name").val(),
+            Phone: $("#Phone").val(),
+            Email: $("#Email").val(),
+            Subject: $("#Subject").val(),
+            Message: $("#Message").val()
+        };
+
+        $.ajax({
+            method: "POST",
+            url: "/Home/Index",
+            dataType: "json",
+            data: entity,
+            success: function (res) {
+                if (res.success) {
+                    $("#iletisimFormu")[0].reset();
+                    $(".sent-message").show();
+                    $(".error-message").hide();
+                } else {
+                    $(".error-message").show().html(res.message);
+                    $(".sent-message").hide();
+                }
+            },
+            error: function () {
+                $(".error-message").show().html("Sunucu hatası!");
+                $(".sent-message").hide();
+            }
+        });
+    });
+</script>

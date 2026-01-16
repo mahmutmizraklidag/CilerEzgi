@@ -1,0 +1,209 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewData["Title"] = "Siparişler";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Sipariş Yönetimi</h4>
+        </div>
+        <div class="card-body">
+
+            <ul class="nav nav-tabs" id="siparisTablari" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active fw-bold text-success" id="odenen-tab" data-bs-toggle="tab" data-bs-target="#odenen" type="button" role="tab">
+                        ✔ Başarılı (Ödenen)
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link fw-bold text-danger" id="odenmeyen-tab" data-bs-toggle="tab" data-bs-target="#odenmeyen" type="button" role="tab">
+                        ✖ Başarısız (Ödenmeyen)
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content mt-3" id="siparisTabIcerik">
+
+                <div class="tab-pane fade show active" id="odenen" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sipariş No</th>
+                                    <th>Müşteri</th>
+                                    <th>Tutar</th>
+                                    <th>Paket ID</th>
+                                    <th>Tarih</th>
+                                    <th style="width: 120px;">İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Where(x => x.IsPay).OrderByDescending(x => x.CreatedAt))
+                                {
+                                    <tr>
+                                        <td><strong>@item.OrderNumber</strong></td>
+                                        <td>@item.Fullname <br /><small class="text-muted">@item.Phone</small></td>
+                                        <td class="text-success fw-bold">@item.Price ₺</td>
+                                        <td>@item.PricingName</td>
+                                        <td>@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-detay"
+                                                    data-fullname="@item.Fullname"
+                                                    data-phone="@item.Phone"
+                                                    data-email="@item.Email"
+                                                    data-tcid="@item.TcId"
+                                                    data-price="@item.Price"
+                                                    data-ordernumber="@item.OrderNumber"
+                                                    data-address="@item.Address"
+                                                    data-city="@item.City"
+                                                    data-district="@item.District"
+                                                    data-pricing="@item.PricingName"
+                                                    data-date="@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")"
+                                                    data-ispay="True">
+                                                Detay Gör
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="odenmeyen" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sipariş No</th>
+                                    <th>Müşteri</th>
+                                    <th>Tutar</th>
+                                    <th>Paket ID</th>
+                                    <th>Tarih</th>
+                                    <th style="width: 120px;">İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Where(x => !x.IsPay).OrderByDescending(x => x.CreatedAt))
+                                {
+                                    <tr>
+                                        <td><strong>@item.OrderNumber</strong></td>
+                                        <td>@item.Fullname <br /><small class="text-muted">@item.Phone</small></td>
+                                        <td class="text-secondary">@item.Price ₺</td>
+                                        <td>@item.PricingName</td>
+                                        <td>@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                                        <td>
+                                            <button class="btn btn-secondary btn-sm btn-detay"
+                                                    data-fullname="@item.Fullname"
+                                                    data-phone="@item.Phone"
+                                                    data-email="@item.Email"
+                                                    data-tcid="@item.TcId"
+                                                    data-price="@item.Price"
+                                                    data-ordernumber="@item.OrderNumber"
+                                                    data-address="@item.Address"
+                                                    data-city="@item.City"
+                                                    data-district="@item.District"
+                                                    data-pricing="@item.PricingName"
+                                                    data-date="@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")"
+                                                    data-ispay="False">
+                                                Detay Gör
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detayModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">Sipariş Detayı: <strong id="m_orderNo"></strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="col-md-6 border-end">
+                        <h6 class="text-primary border-bottom pb-2">Müşteri Bilgileri</h6>
+                        <p><strong>Ad Soyad:</strong> <span id="m_fullname"></span></p>
+                        <p><strong>TC Kimlik:</strong> <span id="m_tcid"></span></p>
+                        <p><strong>Telefon:</strong> <span id="m_phone"></span></p>
+                        <p><strong>E-Posta:</strong> <span id="m_email"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-primary border-bottom pb-2">Sipariş Bilgileri</h6>
+                        <p><strong>Tutar:</strong> <span id="m_price"></span> ₺</p>
+                        <p><strong>Paket Kodu:</strong> <span id="m_pricing"></span></p>
+                        <p><strong>Tarih:</strong> <span id="m_date"></span></p>
+                        <p><strong>Durum:</strong> <span id="m_status"></span></p>
+                    </div>
+                    <div class="col-12 border-top pt-3">
+                        <h6 class="text-primary">Adres Bilgisi</h6>
+                        <p class="mb-1"><span id="m_address"></span></p>
+                        <p><strong>İlçe/İl:</strong> <span id="m_district"></span> / <span id="m_city"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // .btn-detay sınıfına sahip herhangi bir butona tıklandığında
+        $(".btn-detay").click(function () {
+
+            // 1. Tıklanan butonun üzerindeki verileri (data-*) al
+            var btn = $(this);
+            var fullname = btn.data("fullname");
+            var phone = btn.data("phone");
+            var email = btn.data("email");
+            var tcid = btn.data("tcid");
+            var price = btn.data("price");
+            var orderNo = btn.data("ordernumber");
+            var address = btn.data("address");
+            var city = btn.data("city");
+            var district = btn.data("district");
+            var pricing = btn.data("pricing");
+            var date = btn.data("date");
+            var isPay = btn.data("ispay");
+
+            // 2. Modal içindeki alanlara bu verileri yaz
+            $("#m_fullname").text(fullname);
+            $("#m_phone").text(phone);
+            $("#m_email").text(email);
+            $("#m_tcid").text(tcid);
+            $("#m_price").text(price);
+            $("#m_orderNo").text(orderNo);
+            $("#m_address").text(address);
+            $("#m_city").text(city);
+            $("#m_district").text(district);
+            $("#m_pricing").text(pricing);
+            $("#m_date").text(date);
+
+            // 3. Ödeme durumuna göre rozet (badge) ayarla
+            if (isPay === "True" || isPay === true) {
+                $("#m_status").html('<span class="badge bg-success">Ödeme Başarılı</span>');
+            } else {
+                $("#m_status").html('<span class="badge bg-danger">Ödeme Bekleniyor / Başarısız</span>');
+            }
+
+            // 4. Modalı aç
+            $("#detayModal").modal("show");
+        });
+    });
+</script>

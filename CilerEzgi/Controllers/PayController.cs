@@ -85,8 +85,8 @@ namespace CilerEzgi.Controllers
             string post_url = "https://www.paytr.com/odeme";
             string currency = "TL";
             string lang = "tr";
-            string merchant_ok_url = "http://localhost:5184/payment/success";
-            string merchant_fail_url = "http://localhost:5184/payment/failed";
+            string merchant_ok_url = "https://kimdemisyapamazsin.com//payment/success";
+            string merchant_fail_url = "https://kimdemisyapamazsin.com//payment/failed";
             string expiry_month = model.ExpirationDate.Split("/")[0];
             string expiry_year = model.ExpirationDate.Split("/")[1];
             string cc_owner = model.CardHolderName;

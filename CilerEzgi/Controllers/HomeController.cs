@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using CilerEzgi.Data;
+using CilerEzgi.Entities;
 using CilerEzgi.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,31 @@ namespace CilerEzgi.Controllers
             };
             return View(HomePageViewModel);
         }
+        [HttpPost]
+        public async Task<IActionResult> Index(ContactForm contact)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.ContactForms.Add(contact);
+                    int result = await _context.SaveChangesAsync();
 
+                    if (result > 0)
+                    {
+                        //var temp = MailTemplates.ContactFormTemplate(entity);
+                        //MailSender mailSender = new MailSender();
+                        //await mailSender.SendMailAsync(entity.Email, "Zoom Danýþmanlýk iletiþim Formu", temp, entity.Name);
+                        return Json(new { success = true, message = "Mesajýnýz gönderildi." });
+                    }
+                }
+                catch
+                {
+                    return Json(new { success = false, message = "Hata oluþtu!" });
+                }
+            }
+            return Json(new { success = false, message = "Form bilgileri hatalý!" });
+        }
         public IActionResult Privacy()
         {
             return View();
