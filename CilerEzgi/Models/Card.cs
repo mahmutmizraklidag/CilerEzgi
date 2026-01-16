@@ -7,10 +7,6 @@ namespace CilerEzgi.Models
     {
         public int Id { get; set; }
 
-        public string? Price { get; set; }
-
-        public string? ProductName { get; set; }
-
         [Required(ErrorMessage = "Kart numarası zorunludur.")]
         [LuhnCreditCard(ErrorMessage = "Geçersiz kredi kartı numarası.")] // Özel Yazdığımız Attribute
         public string CardNumber { get; set; }

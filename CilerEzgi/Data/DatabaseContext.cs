@@ -18,6 +18,7 @@ namespace CilerEzgi.Data
         public DbSet<About> Abouts { get; set; }
         public DbSet<SiteSetting> SiteSettings { get; set; }
         public DbSet<Policies> Policies { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

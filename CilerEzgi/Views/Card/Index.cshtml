@@ -79,10 +79,10 @@
             transition: all 0.3s ease-in-out;
         }
 
-            .selected-package-card:hover,
-            .billing-details-box:hover {
-                transform: translateY(-5px);
-            }
+        .selected-package-card:hover,
+        .billing-details-box:hover {
+            transform: translateY(-5px);
+        }
 
         .section-title {
             font-size: 24px;
@@ -107,11 +107,11 @@
             border: 2px solid var(--theme-color-secondary);
         }
 
-            .package-img img {
-                max-width: 60%;
-                max-height: 60%;
-                object-fit: contain;
-            }
+        .package-img img {
+            max-width: 60%;
+            max-height: 60%;
+            object-fit: contain;
+        }
 
         .badge-custom {
             background-color: var(--theme-color-secondary);
@@ -133,15 +133,15 @@
             gap: 15px;
         }
 
-            .package-features li {
-                font-size: 15px;
-                color: var(--theme-color-text);
-            }
+        .package-features li {
+            font-size: 15px;
+            color: var(--theme-color-text);
+        }
 
-                .package-features li i {
-                    color: var(--theme-color-secondary);
-                    margin-right: 6px;
-                }
+        .package-features li i {
+            color: var(--theme-color-secondary);
+            margin-right: 6px;
+        }
 
         .price-tag {
             color: var(--theme-color-secondary);
@@ -158,22 +158,22 @@
             transition: color 0.3s;
         }
 
-            .change-pack-btn:hover {
-                color: var(--theme-color-secondary);
-            }
+        .change-pack-btn:hover {
+            color: var(--theme-color-secondary);
+        }
 
         /* Form Elemanları */
         .form-group {
             margin-bottom: 20px;
         }
 
-            .form-group label {
-                font-weight: 600;
-                font-size: 15px;
-                color: var(--theme-color-primary);
-                margin-bottom: 8px;
-                display: block;
-            }
+        .form-group label {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--theme-color-primary);
+            margin-bottom: 8px;
+            display: block;
+        }
 
         .custom-input {
             height: 50px;
@@ -187,11 +187,11 @@
             font-size: 15px;
         }
 
-            .custom-input:focus {
-                border-color: var(--theme-color-secondary);
-                box-shadow: 0 0 0 4px rgba(216, 148, 124, 0.1);
-                outline: none;
-            }
+        .custom-input:focus {
+            border-color: var(--theme-color-secondary);
+            box-shadow: 0 0 0 4px rgba(216, 148, 124, 0.1);
+            outline: none;
+        }
 
         textarea.custom-input {
             height: auto;
@@ -221,16 +221,16 @@
             font-size: 14px;
         }
 
-            .card-input::placeholder {
-                color: rgba(255, 255, 255, 0.4);
-            }
+        .card-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
 
-            .card-input:focus {
-                background: rgba(255, 255, 255, 0.2);
-                border-color: var(--theme-color-secondary);
-                color: #fff;
-                box-shadow: none;
-            }
+        .card-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--theme-color-secondary);
+            color: #fff;
+            box-shadow: none;
+        }
 
         .input-group-text {
             background: rgba(255, 255, 255, 0.1);
@@ -256,30 +256,30 @@
             z-index: 1;
         }
 
-            .btn-pay:before {
-                display: block;
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                height: 100%;
-                width: 0px;
-                z-index: -1;
-                content: '';
-                color: var(--theme-color-secondary);
-                background-color: var(--theme-color-white);
-                transition: all 0.4s cubic-bezier(0.12, 0, 0.38, 1) 0s;
-            }
+        .btn-pay:before {
+            display: block;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            height: 100%;
+            width: 0px;
+            z-index: -1;
+            content: '';
+            color: var(--theme-color-secondary);
+            background-color: var(--theme-color-white);
+            transition: all 0.4s cubic-bezier(0.12, 0, 0.38, 1) 0s;
+        }
 
-            .btn-pay:hover {
-                color: var(--theme-color-secondary);
-                transform: translateY(-3px);
-            }
+        .btn-pay:hover {
+            color: var(--theme-color-secondary);
+            transform: translateY(-3px);
+        }
 
-                .btn-pay:hover:before {
-                    left: 0%;
-                    right: auto;
-                    width: 100%;
-                }
+        .btn-pay:hover:before {
+            left: 0%;
+            right: auto;
+            width: 100%;
+        }
 
         /* Responsive Düzeltmeler */
         @@media (max-width: 768px) {
@@ -388,7 +388,7 @@
 
                             <div class="package-content flex-grow-1 ps-md-4 ps-0">
                                 <span class="badge-custom">Seçilen Paket</span>
-                                <h3 class="mt-2">@Model.Title</h3>
+                                <h3 class="mt-2">@Model?.Title</h3>
                                 <ul class="package-features">
                                     <li><i class="fa-solid fa-check"></i> Güvenli Ödeme Altyapısı</li>
                                     <li><i class="fa-solid fa-check"></i> Anında Randevu Oluşturma</li>
@@ -397,7 +397,7 @@
                             </div>
                             <div class="package-price text-md-end text-start mt-md-0 mt-3">
                                 <p class="text-muted mb-0"><small>Toplam Tutar</small></p>
-                                <h2 class="price-tag">₺@Model.Price<small style="font-size: 20px">,00</small></h2>
+                                <h2 class="price-tag">₺@Model?.Price<small style="font-size: 20px">,00</small></h2>
                                 <a asp-controller="Home" asp-action="Index" asp-fragment="pricing" class="change-pack-btn">
                                     <i class="fa-solid fa-pen"></i> Değiştir
                                 </a>
@@ -407,8 +407,9 @@
                 </div>
             </div>
 
-            <form id="paymentForm">
-                <input type="hidden" name="Id" value="@Model.Id" />
+            <!-- ✅ Bu form /pay'a AJAX gider, dönen değerlerle PayTR formu otomatik submit edilir -->
+            <form id="paymentForm" autocomplete="off">
+                <input type="hidden" name="Id" value="@Model?.Id" />
 
                 <div class="row">
                     <div class="col-lg-7 col-md-12 mb-4" data-aos="fade-up">
@@ -452,7 +453,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>İl</label>
-                                        <select name="city" class="form-control custom-input">
+                                        <!-- ✅ name City olmalı (model binding) -->
+                                        <select name="City" class="form-control custom-input">
                                             <option value="">Seçiniz...</option>
                                             <option value="adana">Adana</option>
                                             <option value="adiyaman">Adıyaman</option>
@@ -566,26 +568,26 @@
                                     <label class="text-white-50 small">Kart Numarası</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fa-regular fa-credit-card"></i></span>
-                                        <input type="text" name="CardNumber" class="form-control card-input" placeholder="0000 0000 0000 0000" maxlength="19">
+                                        <input type="text" name="CardNumber" class="form-control card-input" placeholder="0000 0000 0000 0000" maxlength="19" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group mb-3">
                                     <label class="text-white-50 small">Kart Üzerindeki İsim</label>
-                                    <input type="text" name="CardHolderName" class="form-control card-input" placeholder="AD SOYAD">
+                                    <input type="text" name="CardHolderName" class="form-control card-input" placeholder="AD SOYAD" required>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group mb-3">
                                             <label class="text-white-50 small">Son K. Tarihi</label>
-                                            <input type="text" name="ExpirationDate" class="form-control card-input" placeholder="AA/YY" maxlength="5">
+                                            <input type="text" name="ExpirationDate" class="form-control card-input" placeholder="AA/YY" maxlength="5" required>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group mb-3">
                                             <label class="text-white-50 small">CVV / CVC</label>
-                                            <input type="text" name="CVV" class="form-control card-input" placeholder="123" maxlength="3">
+                                            <input type="text" name="CVV" class="form-control card-input" placeholder="123" maxlength="3" required>
                                         </div>
                                     </div>
                                 </div>
@@ -593,7 +595,7 @@
                                 <div class="total-area mt-4">
                                     <div class="d-flex justify-content-between text-white mb-2">
                                         <span>Toplam Tutar:</span>
-                                        <span class="fw-bold">₺@Model.Price</span>
+                                        <span class="fw-bold">₺@Model?.Price</span>
                                     </div>
                                     <button type="submit" id="btnPay" class="btn btn-pay w-100">
                                         <i class="fa-solid fa-lock"></i> Güvenli Öde
@@ -607,6 +609,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
     </section>
 
@@ -720,56 +723,106 @@
     <script src="/assets/js/type.js"></script>
 
     <script>
-        // --- 1. AJAX FORM GÖNDERİMİ VE SUNUCU CEVAP KONTROLÜ (jQuery) ---
+        // =========================
+        // 0) PAYTR'ye hidden form ile yönlendirme helper'ı
+        // =========================
+        function buildAndSubmitPaytrForm(paytrResponse) {
+            // Güvenlik notu: Backend'in döndürdüğü "merchant_key" gibi secret alanları kesinlikle client'a göndermeyin.
+            // Burada da ayrıca filtreliyoruz.
+            const forbiddenKeys = ["merchant_key"];
+
+            const actionUrl = paytrResponse.post_url || "https://www.paytr.com/odeme";
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = actionUrl;
+            form.style.display = "none";
+
+            // Tüm primitive alanları hidden input olarak bas
+            Object.keys(paytrResponse).forEach(function (key) {
+                if (forbiddenKeys.includes(key)) return;
+
+                const val = paytrResponse[key];
+                if (val === null || val === undefined) return;
+
+                // Object/Array ise string'e çevir (backend zaten user_basket'i string olarak döndürüyor)
+                let strVal = val;
+                if (typeof val === "object") {
+                    try { strVal = JSON.stringify(val); } catch (e) { strVal = ""; }
+                }
+
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = key;
+                input.value = String(strVal);
+                form.appendChild(input);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        // =========================
+        // 1) AJAX: /pay'a POST -> dönen verilerle PayTR'ye otomatik POST
+        // =========================
         $(document).ready(function () {
             $("#paymentForm").on("submit", function (e) {
-                e.preventDefault(); // Sayfanın yenilenmesini engelle
+                e.preventDefault();
 
-                // Not: Model Validasyonları sunucuda yapılacağı için burada manuel JS kontrolü yapmıyoruz.
-                // Veriler sunucuya gider, hatalıysa cevap döner ve ekrana basarız.
-
-                // Butonu pasife al ve yükleniyor animasyonu ekle
+                // Butonu pasife al + loader
                 var btn = $("#btnPay");
                 var originalText = btn.html();
                 btn.prop("disabled", true).html('<i class="fa-solid fa-spinner fa-spin"></i> İşleniyor...');
 
-                // Form verilerini al
+                // Kart numarasını digits-only göndermek için (model tarafına temiz gider)
+                var $cardNumber = $('input[name="CardNumber"]');
+                var rawCard = ($cardNumber.val() || "").toString();
+                $cardNumber.val(rawCard.replace(/\s+/g, ""));
+
                 var formData = $(this).serialize();
 
                 $.ajax({
                     type: "POST",
-                    url: "/Pay/Index", // Controller/Action adresi
+                    url: "/pay", // ✅ Controller'da: [HttpPost("/pay")]
                     data: formData,
                     success: function (response) {
-                        if (response.success) {
-                            // Başarılı işlem
-                            alert("Ödeme işleminiz başarıyla alındı! Teşekkürler.");
-                            // window.location.href = "/Home/Success";
-                        } else {
-                            // Backend'den (Model Validasyonundan) hata dönerse
-                            var errorMsg = response.message;
+                        // Backend bazen Json(success:false) döndürüyor, bazen Ok(...) döndürüyor.
+                        // Ok(...) dönerse "success" alanı yok; bu yüzden şöyle ele alıyoruz:
+                        if (response && response.success === false) {
+                            var errorMsg = response.message || "Lütfen bilgileri kontrol edin.";
                             if (response.errors && response.errors.length > 0) {
                                 errorMsg += "\n\n- " + response.errors.join("\n- ");
                             }
                             alert("Lütfen aşağıdaki hataları düzeltin:\n" + errorMsg);
+                            return;
                         }
+
+                        // PayTR alanları var mı kontrol
+                        if (!response || !response.paytr_token || !response.merchant_id || !response.merchant_oid || !response.email) {
+                            alert("Ödeme başlatılamadı. Sunucudan beklenen PayTR parametreleri alınamadı.");
+                            console.log("Beklenmeyen response:", response);
+                            return;
+                        }
+
+                        // ✅ PayTR'ye hidden form ile otomatik POST
+                        buildAndSubmitPaytrForm(response);
                     },
                     error: function (err) {
                         alert("Sunucu ile iletişim kurulurken bir hata oluştu.");
                         console.log(err);
                     },
                     complete: function () {
-                        // İşlem bitince butonu eski haline getir
+                        // Kart inputunu tekrar boşluklu hale getirmeye gerek yok (kullanıcı akışında zaten yönlenecek)
                         btn.prop("disabled", false).html(originalText);
                     }
                 });
             });
         });
 
-        // --- 2. GÖRSEL FORMATLAMA VE KISITLAMALAR (UX İçin Gerekli - Validasyon Değil) ---
+        // =========================
+        // 2) UX FORMATLAMALAR (Validasyon değil)
+        // =========================
         document.addEventListener("DOMContentLoaded", function () {
 
-            // Seçiciler
             const cardNumberInput = document.querySelector('input[name="CardNumber"]');
             const cardHolderInput = document.querySelector('input[name="CardHolderName"]');
             const expiryInput = document.querySelector('input[name="ExpirationDate"]');
@@ -779,15 +832,14 @@
             const identificationInput = document.querySelector('input[name="IdentificationNumber"]');
             const cardIcon = document.querySelector('#cardBrandIcon');
 
-            // --- A. KART NUMARASI (Boşluk Ekleme ve Logo) ---
+            // A) Kart no 4'lü boşluk + logo
             if (cardNumberInput) {
                 cardNumberInput.addEventListener('input', function (e) {
-                    let value = e.target.value.replace(/\D/g, ''); // Sadece rakamları al
-                    e.target.value = value.replace(/(.{4})/g, '$1 ').trim(); // 4 hanede bir boşluk
+                    let value = e.target.value.replace(/\D/g, '');
+                    e.target.value = value.replace(/(.{4})/g, '$1 ').trim();
 
-                    // Logo Değişimi
                     if (cardIcon) {
-                        cardIcon.className = "fa-brands fa-2x text-white-50"; // Reset
+                        cardIcon.className = "fa-brands fa-2x text-white-50";
                         if (value.startsWith("4")) {
                             cardIcon.classList.add("fa-cc-visa");
                         } else if (value.match(/^5[1-5]/) || value.match(/^2[2-7]/)) {
@@ -801,7 +853,7 @@
                 });
             }
 
-            // --- B. SADECE HARF GİRİŞİ (İsim Alanları) ---
+            // B) Sadece harf (isim alanları)
             function onlyLetters(e) {
                 e.target.value = e.target.value.replace(/[^a-zA-ZğüşıöçĞÜŞİÖÇ\s]/g, '');
             }
@@ -809,7 +861,7 @@
             if (firstNameInput) firstNameInput.addEventListener('input', onlyLetters);
             if (lastNameInput) lastNameInput.addEventListener('input', onlyLetters);
 
-            // --- C. SADECE RAKAM (CVV ve TC) ---
+            // C) Sadece rakam (CVV + TC)
             if (cvvInput) {
                 cvvInput.addEventListener('input', function (e) {
                     e.target.value = e.target.value.replace(/\D/g, '');
@@ -821,7 +873,7 @@
                 });
             }
 
-            // --- D. TARİH FORMATI (AA/YY) ---
+            // D) AA/YY formatı
             if (expiryInput) {
                 expiryInput.addEventListener('input', function (e) {
                     let input = e.target.value.replace(/\D/g, '');
@@ -830,7 +882,6 @@
                     }
                     e.target.value = input;
                 });
-                // Backspace tuşuna basıldığında düzgün silme için
                 expiryInput.addEventListener('keydown', function (e) {
                     if (e.key === "Backspace" && this.value.length === 3) {
                         this.value = this.value.substring(0, 2);
