@@ -212,47 +212,10 @@ namespace CilerEzgi.Controllers
                                 order.IsPay = true;
                                 _context.Update(order);
                                 _context.SaveChanges();
-<<<<<<< Updated upstream
-                            }
-                            var url = "https://bizimhesap.com/api/b2b/addinvoice";
-                            var taxPrice = double.Parse(order.Price) - (double.Parse(order.Price) / 1.2) ;
-                            var requestBody = new
-                            {
-                                firmId = bizimhesap_firm_id,
-                                invoiceNo = order.Id,
-                                invoiceType = 3,
-                                note = $"{order.PricingName} Online Paket Satışı",
-                                dates = new
-                                {
-                                    invoiceDate = DateTime.Now,
-                                    dueDate = DateTime.Now,
-                                    deliveryDate = DateTime.Now
-                                },
-                                customer = new
-                                {
-                                    customerId = order.Id,
-                                    title = order.Fullname,
-                                    taxNo = order.TcId,
-                                    email = order.Email,
-                                    phone = order.Phone,
-                                    address = $"{order.City} / {order.District} ----- {order.Address}"
-                                },
-                                amounts = new
-                                {
-                                    currency = "TL",
-                                    gross = double.Parse(order.Price) - taxPrice,
-                                    discount = "0",
-                                    net = double.Parse(order.Price) - taxPrice,
-                                    tax = taxPrice,
-                                    total = order.Price
-                                },
-                                details = new[]
-=======
 
                                 var url = "https://bizimhesap.com/api/b2b/addinvoice";
-                                var taxPrice = double.Parse(order.Price) * 0.20;
+                                var taxPrice = double.Parse(order.Price) - (double.Parse(order.Price) / 1.20);
                                 var requestBody = new
->>>>>>> Stashed changes
                                 {
                                     firmId = bizimhesap_firm_id,
                                     invoiceNo = order.Id,
