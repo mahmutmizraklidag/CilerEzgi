@@ -12,7 +12,7 @@ public class Order
     public string Address { get; set; }
     public string City { get; set; }
     public string District { get; set; }
-    public int PricingName { get; set; } // alınan paketin adı 
+    public string PricingName { get; set; } // alınan paketin adı 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public string OrderNumber { get; set; }
     public bool IsPay { get; set; } = false;

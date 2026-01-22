@@ -130,7 +130,7 @@ namespace CilerEzgi.Controllers
                     Address = user_address,
                     City = model.City,
                     District = model.District,
-                    PricingName = product.Id,
+                    PricingName = product.Title,
                     OrderNumber = merchant_oid,
                     IsPay = false
                 };
