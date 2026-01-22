@@ -1,6 +1,7 @@
 using CilerEzgi.Data;
 using CilerEzgi.Entities;
 using CilerEzgi.Models;
+using Ideio.Core.Tools;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,20 +14,22 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 });
 
+builder.Services.AddScoped<IMailSender,MailSender>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(x =>
-    {
-        x.LoginPath = "/Admin/Login";
-        x.AccessDeniedPath = "/AccessDenied";
-        x.LogoutPath = "/Admin/Logout";
-        x.Cookie.Name = "Admin";
-        x.Cookie.MaxAge = TimeSpan.FromDays(10);
-        x.ExpireTimeSpan = TimeSpan.FromHours(3); // ?? 1 saat oturum süresi
-        x.SlidingExpiration = true; // ?? Her iþlemde süre yenilenir
-        x.Cookie.IsEssential = true;
-        x.Cookie.SameSite = SameSiteMode.Lax; // ?? None yerine Lax önerilir
-        x.Cookie.HttpOnly = true;
-    });
+.AddCookie(x =>
+{
+    x.LoginPath = "/Admin/Login";
+    x.AccessDeniedPath = "/AccessDenied";
+    x.LogoutPath = "/Admin/Logout";
+    x.Cookie.Name = "Admin";
+    x.Cookie.MaxAge = TimeSpan.FromDays(10);
+    x.ExpireTimeSpan = TimeSpan.FromHours(3); // ?? 1 saat oturum süresi
+    x.SlidingExpiration = true; // ?? Her iþlemde süre yenilenir
+    x.Cookie.IsEssential = true;
+    x.Cookie.SameSite = SameSiteMode.Lax; // ?? None yerine Lax önerilir
+    x.Cookie.HttpOnly = true;
+});
 
 var app = builder.Build();
 
