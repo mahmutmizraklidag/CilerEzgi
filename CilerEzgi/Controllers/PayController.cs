@@ -212,7 +212,7 @@ namespace CilerEzgi.Controllers
                                 _context.SaveChanges();
                             }
                             var url = "https://bizimhesap.com/api/b2b/addinvoice";
-                            var taxPrice = double.Parse(order.Price) * 0.20;
+                            var taxPrice = double.Parse(order.Price) - (double.Parse(order.Price) / 1.2) ;
                             var requestBody = new
                             {
                                 firmId = bizimhesap_firm_id,
