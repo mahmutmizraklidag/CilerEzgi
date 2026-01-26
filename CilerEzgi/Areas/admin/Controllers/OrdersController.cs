@@ -22,6 +22,7 @@ namespace CilerEzgi.Areas.admin.Controllers
         // GET: admin/Orders
         public async Task<IActionResult> Index()
         {
+
             return View(await _context.Orders.OrderByDescending(x => x.CreatedAt).ToListAsync());
         }
 

@@ -1,0 +1,632 @@
+﻿@using CilerEzgi.Entities
+@model PricingDetailViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <title>@Model.MainPricing.Title | Çiler Ezgi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" sizes="57x57" href="./assets/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./assets/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./assets/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./assets/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./assets/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./assets/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/images/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="/assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/js/bootstrap.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="/assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/mediaqueries.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/custom-style.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/special-classes.css" rel="stylesheet" type="text/css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
+</head>
+
+<body>
+
+    <style>
+        /* TASARIM DEĞİŞİKLİKLERİ BURADA */
+
+        :root {
+            --theme-color-primary: #242424;
+            --theme-color-secondary: #d8947c;
+            --theme-color-text: #6b6b6b;
+            --theme-color-pale-blue: #f4f7ff;
+            --theme-color-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Karla', sans-serif;
+            color: var(--theme-color-text);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            color: var(--theme-color-primary);
+        }
+
+        .checkout_section {
+            padding: 100px 0;
+            background-color: var(--theme-color-pale-blue);
+        }
+
+        /* Kart ve Kutu Stilleri */
+        .selected-package-card,
+        .billing-details-box {
+            background: var(--theme-color-white);
+            padding: 40px;
+            border-radius: 35px 0 35px 0;
+            border: none;
+            box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .selected-package-card:hover,
+            .billing-details-box:hover {
+                transform: translateY(-5px);
+            }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--theme-color-primary);
+            border-bottom: 2px solid var(--theme-color-secondary);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* Paket Görselleri */
+        .package-img {
+            width: 90px;
+            height: 90px;
+            background-color: #fff0eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 2px solid var(--theme-color-secondary);
+        }
+
+            .package-img img {
+                max-width: 60%;
+                max-height: 60%;
+                object-fit: contain;
+            }
+
+        .badge-custom {
+            background-color: var(--theme-color-secondary);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 15px 0 15px 0;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .package-features {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+            .package-features li {
+                font-size: 15px;
+                color: var(--theme-color-text);
+            }
+
+                .package-features li i {
+                    color: var(--theme-color-secondary);
+                    margin-right: 6px;
+                }
+
+        .price-tag {
+            color: var(--theme-color-secondary);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 36px;
+            margin-bottom: 0;
+        }
+
+        .change-pack-btn {
+            font-size: 14px;
+            color: var(--theme-color-text);
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+            .change-pack-btn:hover {
+                color: var(--theme-color-secondary);
+            }
+
+        /* Form Elemanları */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                font-weight: 600;
+                font-size: 15px;
+                color: var(--theme-color-primary);
+                margin-bottom: 8px;
+                display: block;
+            }
+
+        .custom-input {
+            height: 50px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            padding: 0 20px;
+            background-color: #ffffff;
+            font-family: 'Karla', sans-serif;
+            color: var(--theme-color-text);
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+            .custom-input:focus {
+                border-color: var(--theme-color-secondary);
+                box-shadow: 0 0 0 4px rgba(216, 148, 124, 0.1);
+                outline: none;
+            }
+
+        textarea.custom-input {
+            height: auto;
+            padding-top: 15px;
+        }
+
+        /* Kredi Kartı Görseli */
+        .payment-card-wrapper {
+            position: sticky;
+            top: 20px;
+        }
+
+        .credit-card-visual {
+            background: linear-gradient(135deg, #242424 0%, #4a4a4a 100%);
+            padding: 30px;
+            border-radius: 35px 0 35px 0;
+            color: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .card-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            height: 45px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+            .card-input::placeholder {
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            .card-input:focus {
+                background: rgba(255, 255, 255, 0.2);
+                border-color: var(--theme-color-secondary);
+                color: #fff;
+                box-shadow: none;
+            }
+
+        .input-group-text {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-right: none;
+            color: #fff;
+        }
+
+        /* Ödeme Butonu */
+        .btn-pay {
+            background-color: var(--theme-color-secondary);
+            color: #fff;
+            font-weight: 500;
+            padding: 18px;
+            border-radius: 35px 0 35px 0;
+            font-size: 18px;
+            transition: all 0.3s ease-in-out;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+            .btn-pay:before {
+                display: block;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                height: 100%;
+                width: 0px;
+                z-index: -1;
+                content: '';
+                color: var(--theme-color-secondary);
+                background-color: var(--theme-color-white);
+                transition: all 0.4s cubic-bezier(0.12, 0, 0.38, 1) 0s;
+            }
+
+            .btn-pay:hover {
+                color: var(--theme-color-secondary);
+                transform: translateY(-3px);
+            }
+
+                .btn-pay:hover:before {
+                    left: 0%;
+                    right: auto;
+                    width: 100%;
+                }
+
+        /* Responsive Düzeltmeler */
+        @@media (max-width: 768px) {
+            .selected-package-card .d-flex {
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+
+            .package-img {
+                margin-bottom: 15px;
+            }
+
+            .package-content {
+                padding-left: 0 !important;
+                margin-bottom: 15px;
+            }
+
+            .package-price {
+                width: 100%;
+                border-top: 1px solid #eee;
+                padding-top: 15px;
+                text-align: left !important;
+            }
+
+            .payment-card-wrapper {
+                margin-top: 30px;
+            }
+        }
+
+        /* Validasyon Hata Mesajları için Stil */
+        .field-validation-error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+
+    <div class="sub-banner-section">
+        <header>
+            <div class="main_header">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg navbar-light p-0">
+                        <a class="navbar-brand" href="#home">
+                            <figure class="mb-0">
+                                <img src="@Url.Content("~/img/" + DataRequestModel.SiteSetting.Logo)" alt="">
+                            </figure>
+                        </a>
+                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Anasayfa</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Hakkımızda</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Hizmetlerimiz</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Ne Biz?</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Index">Paketler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link contact_us" asp-controller="Home" asp-action="Index">İletişim</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <section class="banner-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="banner-section-content">
+                            <h1 data-aos="fade-up" style="color:#fff">@Model.MainPricing.Title</h1>
+                            <div class="btn_wrapper" style="background-color:unset !important;">
+                                <span class="sub_home_span">Anasayfa </span><i class="fa-solid fa-angles-right" aria-hidden="true"></i><span class="sub_span" style="color:#fff"> @Model.MainPricing.Title</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MAIN SECTION -->
+    <section class="blog-posts single-post" style="padding: 120px 0 0px !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12">
+                    <div id="blog" class="single-post01">
+                        <div class="post-item">
+                            <div class="post-item-wrap">
+
+                                <div class="post-item-description">
+                                    <h2 class="single-post-heading font_weight_600">@Model.MainPricing.Title</h2>
+
+                                    @Html.Raw(Model.MainPricing.Description)
+
+                                </div>
+
+
+
+
+                                <!--post-item-wrap-->
+                            </div>
+                            <!--post-item-->
+                        </div>
+                        <!--single-post01-->
+                    </div>
+                    <!--col-->
+                </div>
+
+            </div>
+        </div>
+        <!--container-->
+    </section>
+
+
+    <section class="pricing_plans_section" style="padding: 0px 0 130px !important;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="pricing_plans_content">
+                        <h5>Paketler</h5>
+                        @* <h2>@Model.MainPricing.Title Paketleri</h2> *@
+                        <p>Size uygun olan paketi seçerek hemen başlayabilirsiniz.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center" data-aos="fade-up">
+
+                @if (Model == null || Model.SubPricings == null || !Model.SubPricings.Any())
+                {
+                    <div class="alert alert-warning">
+                        Bu kategoriye ait henüz bir paket tanımlanmamış.
+                    </div>
+                }
+                else
+                {
+                    // Alt Paketleri Fiyata Göre Sırala (En yüksek fiyatlı varsayılan olsun diye)
+                    var sortedPackages = Model.SubPricings.OrderByDescending(x =>
+                    {
+                        double p;
+                        string cleanPrice = x.Price?.Replace("₺", "").Trim() ?? "0";
+                        return double.TryParse(cleanPrice, out p) ? p : 0;
+                    }).ToList();
+
+                    // Tek bir kart oluşturuyoruz (Çünkü zaten detay sayfasındayız)
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <div class="pricing_plans_box_content">
+
+                            <div class="pricing_plans_box_upper_portion">
+                                <figure class="pricing_plans_image mb-0">
+                                    <img src="@Url.Content("~/assets/images/pricing_plan_1.png")" alt="" class="img-fluid">
+                                </figure>
+                                <div class="pricing_plans_box_image_content">
+                                    <figure class="mb-0">
+                                        <img src="@Url.Content("~/assets/images/pricing_plan_icon_3.png")" alt="" class="img-fluid">
+                                    </figure>
+                                </div>
+                            </div>
+
+                            <div class="pricing_plans_box_lower_portion text-center">
+
+                                <h3 class="mb-3">@Model.MainPricing.Title</h3>
+
+                                <ul class="nav nav-tabs justify-content-center border-0 mb-3" id="tab-pricing" role="tablist" style="background-color: #f9f9f9; border-radius: 30px; padding: 5px; display: inline-flex;">
+                                    @for (int i = 0; i < sortedPackages.Count; i++)
+                                    {
+                                        var item = sortedPackages[i];
+                                        var isActive = i == 0 ? "active" : "";
+
+                                        <li class="nav-item" style="margin:0;">
+                                            <a class="nav-link @isActive"
+                                               id="tab-btn-@item.Id"
+                                               data-toggle="tab"
+                                               href="#content-@item.Id"
+                                               role="tab"
+                                               aria-controls="content-@item.Id"
+                                               aria-selected="@(i == 0 ? "true" : "false")"
+                                               style="border-radius: 25px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+
+                                                <span style="font-weight: 600;">@item.Title</span>
+
+                                                <span style="opacity: 0.5;">|</span>
+
+                                                <span style="font-size: 0.9em; font-weight: 500;">₺@item.Price</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+
+                                <div class="tab-content" id="tab-content-pricing">
+                                    @for (int i = 0; i < sortedPackages.Count; i++)
+                                    {
+                                        var item = sortedPackages[i];
+                                        var isActive = i == 0 ? "show active" : "";
+
+                                        <div class="tab-pane fade @isActive" id="content-@item.Id" role="tabpanel" aria-labelledby="tab-btn-@item.Id">
+
+                                            <div class="description-area mb-2">
+                                                @Html.Raw(item.Description)
+                                            </div>
+
+                                            <div class="pricing_plans_span_wrapper">
+                                                <span class="price">₺@item.Price</span>
+                                            </div>
+
+                                            <div class="btn_wrapper mt-3">
+                                                <a class="enroll_now_btn text-decoration-none" asp-controller="Card" asp-action="Index" asp-route-id="@item.Id">
+                                                    Satın Al
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="subscribe_section">
+        <div class="container">
+            <div class="subscribe_background_image">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12" data-aos="fade-right">
+                        <div class="subscribe_content">
+                            <h5>Abone Ol</h5>
+                            <h2>Bültenimize abone olun.</h2>
+                            <form method="POST">
+                                <div class="form-row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <input type="email" name="email" id="emailadd" class="form-control" placeholder="E-mail">
+                                        <button type="submit" name="btnsubmit" id="submitbutton">Abone Ol</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                        <figure class="subscribe_image mb-0">
+                            <img src="@Url.Content("~/img/subs.png")" alt="" />
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer-section" id="footer_section">
+        <div class="container">
+            <div class="middle-portion">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-lg-block d-none">
+                        <div class="footer_logo">
+                            <a href="./index.html" class="text-decoration-none">
+                                <figure class="mb-0">
+                                    <img src="@Url.Content("~/img/" + DataRequestModel.SiteSetting.Logo)" alt="">
+                                </figure>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="about_col">
+                            <h4>Çiler Ezgi</h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <p>Bireyin iç dünyasını anlamasına, zihinsel yüklerinden arınmasına ve kendisiyle daha derin bir bağ kurmasına rehberlik eder.</p>
+                                </li>
+                                <li class="icons"><a href="@DataRequestModel.SiteSetting.Instagram" target="_blank"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                                <li class="icons"><a href="@DataRequestModel.SiteSetting.YouTube" target="_blank"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a></li>
+                                <li class="icons"><a href="@DataRequestModel.SiteSetting.Facebook" target="_blank"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-md-block d-none">
+                        <div class="links_col">
+                            <h4>Politikalar</h4>
+                            <ul class="list-unstyled">
+                                @foreach (var item in DataRequestModel.Policies)
+                                {
+                                    <li>
+                                        <a asp-controller="Policies" asp-action="Index" asp-route-slug="@item.Slug">@item.Title</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 d-sm-block d-none">
+                        <div class="contact_col">
+                            <h4>İletişim Bilgileri</h4>
+                            <ul class="list-unstyled">
+                                <li class="contact_icons">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a href="tel:@DataRequestModel.SiteSetting.Phone" class="text-decoration-none">@DataRequestModel.SiteSetting.Phone</a>
+                                </li>
+                                <li class="contact_icons">
+                                    <i class="fa-sharp fa-solid fa-envelope"></i>
+                                    <a href="mailto:@DataRequestModel.SiteSetting.Email" class="text-decoration-none">@DataRequestModel.SiteSetting.Email</a>
+                                </li>
+                                <li class="mb-0">
+                                    <i class="fa-solid fa-location-dot location"></i>
+                                    <span>@DataRequestModel.SiteSetting.Address</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-portion">
+            <div class="copyright col-xl-12">
+                <p>Copyright 2026, İdeio Creative All Rights Reserved.</p>
+            </div>
+        </div>
+        <div class="footer_shape right_shape">
+            <figure class="mb-0"><img src="./assets/images/footer_shape.png" alt="" class="img-fluid"></figure>
+        </div>
+    </section>
+
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/video-popup.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/assets/js/video-section.js"></script>
+    <script src="/assets/js/animation.js"></script>
+    <script src="https://unpkg.com/ityped@0.0.10"></script>
+    <script src="/assets/js/type.js"></script>
+
+  
+</body>
+
+</html>

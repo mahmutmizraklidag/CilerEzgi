@@ -4,6 +4,7 @@ using System.Text.Json;
 using CilerEzgi.Data;
 using CilerEzgi.Entities; // Pricing modelinin olduğu namespace
 using CilerEzgi.Models;   // Card modelinin olduğu namespace
+using CilerEzgi.Tools;
 using Ideio.Core.Tools;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,9 +38,10 @@ namespace CilerEzgi.Controllers
             return new string(stringChars);
         }
 
-        public PayController(DatabaseContext context)
+        public PayController(DatabaseContext context, IMailSender mailSender)
         {
             _context = context;
+            _mailSender = mailSender;
         }
 
 
@@ -71,6 +73,11 @@ namespace CilerEzgi.Controllers
 
                 var product = _context.Pricings
                     .FirstOrDefault(x => x.Id == model.Id);
+                //üst kategori adını almak için
+                var parentProduct = _context.Pricings
+                    .FirstOrDefault(x => x.Id == product.ParentId);
+
+                var productname = parentProduct.Title+" "+ product.Title;
                 // ✅ Toplam fiyata indirimli halini yaz (kargo dahil)
                 double payment_amount = double.Parse(product.Price); // Kuruş cinsinden
                 if (payment_amount < 0) payment_amount = 0;
@@ -107,7 +114,7 @@ namespace CilerEzgi.Controllers
             {
                 new object[]
                 {
-                    product.Title,
+                    productname,
                     payment_amount,
                     1
                 }
@@ -133,6 +140,7 @@ namespace CilerEzgi.Controllers
                     Address = user_address,
                     City = model.City,
                     District = model.District,
+                    ParentPricingName = parentProduct != null ? parentProduct.Title : "",
                     PricingName = product.Title,
                     OrderNumber = merchant_oid,
                     IsPay = false
@@ -141,7 +149,9 @@ namespace CilerEzgi.Controllers
 
 
                 _context.Add(order);
-                _context.SaveChanges();
+               _context.SaveChanges();
+              
+
 
                 // ✅ Geriye dönen değerlere karışmadan aynen bırakıldı
                 return Ok(new
@@ -220,7 +230,7 @@ namespace CilerEzgi.Controllers
                                     firmId = bizimhesap_firm_id,
                                     invoiceNo = order.Id,
                                     invoiceType = 3,
-                                    note = $"{order.PricingName} Online Paket Satışı",
+                                    note = $"{order.ParentPricingName} {order.PricingName} Online Paket Satışı",
                                     dates = new
                                     {
                                         invoiceDate = DateTime.Now,
@@ -282,98 +292,11 @@ namespace CilerEzgi.Controllers
                                 }
                             }
 
-                            var mailTag = $@"
-                                                    <!DOCTYPE html>
-                                                        <html lang=""tr"">
-                                                        <head>
-                                                            <meta charset=""UTF-8"">
-                                                            <title>Siparişiniz Alındı</title>
-                                                        </head>
-                                                        <body style=""margin:0;padding:0;background-color:#f6f4fb;font-family:Arial,Helvetica,sans-serif;"">
-                                                            <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#f6f4fb;padding:24px 0;"">
-                                                                <tr>
-                                                                    <td align=""center"">
-                                                                        <table width=""600"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(93,18,210,0.12);"">
-                    
-                                                                            <!-- Header -->
-                                                                            <tr>
-                                                                                <td style=""background:linear-gradient(135deg,#5D12D2,#B931FC);padding:28px 32px;text-align:center;"">
-                                                                                    <h1 style=""margin:0;color:#ffffff;font-size:24px;font-weight:700;"">
-                                                                                        Siparişiniz Alındı 🎉
-                                                                                    </h1>
-                                                                                    <p style=""margin:8px 0 0;color:#FFE5E5;font-size:14px;"">
-                                                                                        Kim Demiş Yapamazsın
-                                                                                    </p>
-                                                                                </td>
-                                                                            </tr>
-
-                                                                            <!-- Content -->
-                                                                            <tr>
-                                                                                <td style=""padding:32px;"">
-                                                                                    <p style=""margin:0 0 16px;color:#2e2e2e;font-size:15px;line-height:1.6;"">
-                                                                                        Merhaba <strong>{{FullName}}</strong>,
-                                                                                    </p>
-
-                                                                                    <p style=""margin:0 0 16px;color:#2e2e2e;font-size:15px;line-height:1.6;"">
-                                                                                        Satın aldığınız <strong>{{PackageName}}</strong> başarıyla alınmıştır.  
-                                                                                        Siparişiniz sistemimize kaydedilmiş olup işlemleriniz başlatılmıştır.
-                                                                                    </p>
-
-                                                                                    <!-- Order Box -->
-                                                                                    <table width=""100%"" cellpadding=""0"" cellspacing=""0"" style=""background-color:#f8f6ff;border-radius:10px;margin:24px 0;"">
-                                                                                        <tr>
-                                                                                            <td style=""padding:20px;"">
-                                                                                                <p style=""margin:0 0 8px;color:#5D12D2;font-size:14px;font-weight:600;"">
-                                                                                                    Sipariş Detayları
-                                                                                                </p>
-                                                                                                <p style=""margin:0;color:#333;font-size:14px;line-height:1.6;"">
-                                                                                                    <strong>Sipariş No:</strong> {{OrderNumber}}<br>
-                                                                                                    <strong>Paket:</strong> {{PackageName}}<br>
-                                                                                                    <strong>Tutar:</strong> {{TotalAmount}} TL
-                                                                                                </p>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-
-                                                                                    <p style=""margin:0 0 24px;color:#2e2e2e;font-size:15px;line-height:1.6;"">
-                                                                                        En kısa sürede sizinle iletişime geçilecektir.  
-                                                                                        Aklınıza takılan herhangi bir konuda bizimle iletişime geçmekten çekinmeyin.
-                                                                                    </p>
-
-                                                                                    <!-- CTA -->
-                                                                                    <div style=""text-align:center;margin-top:32px;"">
-                                                                                        <a href=""https://kimdemisyapamazsin.com""
-                                                                                           style=""display:inline-block;padding:14px 28px;
-                                                                                                  background:linear-gradient(135deg,#5D12D2,#FF6AC2);
-                                                                                                  color:#ffffff;text-decoration:none;
-                                                                                                  border-radius:999px;font-size:14px;font-weight:600;"">
-                                                                                            Web Sitemizi Ziyaret Et
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-
-                                                                            <!-- Footer -->
-                                                                            <tr>
-                                                                                <td style=""padding:20px 32px;background-color:#faf9fe;text-align:center;"">
-                                                                                    <p style=""margin:0;color:#777;font-size:12px;line-height:1.6;"">
-                                                                                        © {{Year}} Kim Demiş Yapamazsın  
-                                                                                        <br>
-                                                                                        Bu e-posta bilgilendirme amaçlı gönderilmiştir.
-                                                                                    </p>
-                                                                                </td>
-                                                                            </tr>
-
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </body>
-                                                        </html>
-
-
-                                        ";
+                            var mailTag = MailTemplates.CustomerTemplate(order);
                             await _mailSender.SendMailAsync(order.Email,"Kim Demiş Yapamazsın (Satın aldığınız paket hakkında)", mailTag,"Satış");
+                            var adminMailTag = MailTemplates.AdminTemplate(order);
+                            await _mailSender.SendMailAsync(DataRequestModel.SiteSetting.Email, "Kim Demiş Yapamazsın (Satın aldığınan paket hakkında)", adminMailTag, "Satış");
+
                         }
                     }
                     else

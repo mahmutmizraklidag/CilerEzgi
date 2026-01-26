@@ -22,7 +22,7 @@ namespace CilerEzgi.Controllers
             {
                 About = _context.Abouts.FirstOrDefault(),
                 Services = _context.Services.ToList(),
-                Pricings = _context.Pricings.Where(x=>x.ParentId!=0).ToList()
+                Pricings = _context.Pricings.ToList()
             };
             return View(HomePageViewModel);
         }

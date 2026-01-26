@@ -9,6 +9,8 @@ namespace CilerEzgi.Entities
         public string Title { get; set; }
         [Display(Name = "Fiyat")]
         public string? Price { get; set; }
+        [Display(Name = "Slug")]
+        public string? Slug { get; set; }
         [Display(Name = "Açıklama"), Required(ErrorMessage = "{0} alanı boş geçilemez!")]
         public string Description { get; set; }
 

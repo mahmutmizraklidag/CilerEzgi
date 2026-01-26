@@ -15,6 +15,8 @@ namespace CilerEzgi.Controllers
         public IActionResult Index(int id)
         {
             var model=_context.Pricings.Find(id);
+            var parentModel=_context.Pricings.Find(model.ParentId);
+            ViewBag.ParentTitle=parentModel.Title;
             return View(model);
         }
     }

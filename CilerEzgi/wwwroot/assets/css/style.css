@@ -190,6 +190,19 @@ p{
 .navbar-expand-lg .drop-down-pages .nav-link {
     padding-left: 0;
 }
+/* Metin içi link tasarýmý */
+.theme-link {
+    color: #d8947c !important; /* #d8947c - Pastel Kiremit */
+    font-weight: 600; /* Biraz kalýn olsun ki dikkat çeksin */
+    text-decoration: none; /* Varsayýlan alt çizgiyi kaldýr */
+    border-bottom: 1px solid transparent; /* Zýplamayý önlemek için þeffaf kenarlýk */
+    transition: all 0.3s ease-in-out;
+}
+
+    .theme-link:hover {
+        color: #8c5f51!important; /* #242424 - Koyu Gri/Siyah */
+        border-bottom: 1px solid var(--theme-color-primary); /* Üzerine gelince altýný çiz */
+    }
 .navbar-nav .nav-item .contact_us{
     background-color: var(--e-global-color-soft-orange);
     color: #fff;
@@ -237,6 +250,65 @@ p{
 .left_icons ul li i:hover{
     background-color: var(--e-global-color-white);
     color: var(--e-global-color-secondary);
+}
+
+/* Pricing Tab Özelleþtirmesi */
+.pricing_plans_box_lower_portion .nav-tabs {
+    border-bottom: none;
+    justify-content: center;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border-radius: 30px;
+    padding: 5px;
+    display: inline-flex;
+    width: auto;
+}
+
+.pricing_plans_box_lower_portion .nav-item {
+    margin-bottom: 0;
+}
+
+.pricing_plans_box_lower_portion .nav-link {
+    border: none;
+    border-radius: 25px;
+    color: var(--e-global-color-text); /* #6b6b6b */
+    font-family: 'Karla', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+}
+
+    .pricing_plans_box_lower_portion .nav-link:hover {
+        color: var(--e-global-color-secondary); /* #d8947c */
+    }
+
+    .pricing_plans_box_lower_portion .nav-link.active {
+        background-color: var(--e-global-color-secondary); /* #d8947c */
+        color: #fff !important;
+        box-shadow: 0 4px 10px rgba(216, 148, 124, 0.4);
+    }
+
+.pricing_plans_box_lower_portion .tab-content {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fiyat Alaný Düzenlemesi */
+.pricing_plans_span_wrapper .price {
+    display: block;
+    margin-bottom: 5px;
 }
 
 /* Home Page Banner Section Style */

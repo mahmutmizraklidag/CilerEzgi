@@ -26,6 +26,7 @@
 
             <div class="tab-content mt-3" id="siparisTabIcerik">
 
+                @* --- BAŞARILI TABLOSU --- *@
                 <div class="tab-pane fade show active" id="odenen" role="tabpanel">
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered align-middle">
@@ -34,7 +35,8 @@
                                     <th>Sipariş No</th>
                                     <th>Müşteri</th>
                                     <th>Tutar</th>
-                                    <th>Paket ID</th>
+                                    <th>Kategori</th>
+                                    <th>Paket</th>
                                     <th>Tarih</th>
                                     <th style="width: 120px;">İşlem</th>
                                 </tr>
@@ -46,6 +48,7 @@
                                         <td><strong>@item.OrderNumber</strong></td>
                                         <td>@item.Fullname <br /><small class="text-muted">@item.Phone</small></td>
                                         <td class="text-success fw-bold">@item.Price ₺</td>
+                                        <td>@(string.IsNullOrEmpty(item.ParentPricingName) ? "-" : item.ParentPricingName)</td>
                                         <td>@item.PricingName</td>
                                         <td>@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
                                         <td>
@@ -59,6 +62,7 @@
                                                     data-address="@item.Address"
                                                     data-city="@item.City"
                                                     data-district="@item.District"
+                                                    data-parentpricing="@item.ParentPricingName"
                                                     data-pricing="@item.PricingName"
                                                     data-date="@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")"
                                                     data-ispay="True">
@@ -72,6 +76,7 @@
                     </div>
                 </div>
 
+                @* --- BAŞARISIZ TABLOSU --- *@
                 <div class="tab-pane fade" id="odenmeyen" role="tabpanel">
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered align-middle">
@@ -80,7 +85,8 @@
                                     <th>Sipariş No</th>
                                     <th>Müşteri</th>
                                     <th>Tutar</th>
-                                    <th>Paket ID</th>
+                                    <th>Kategori</th>
+                                    <th>Paket</th>
                                     <th>Tarih</th>
                                     <th style="width: 120px;">İşlem</th>
                                 </tr>
@@ -92,6 +98,7 @@
                                         <td><strong>@item.OrderNumber</strong></td>
                                         <td>@item.Fullname <br /><small class="text-muted">@item.Phone</small></td>
                                         <td class="text-secondary">@item.Price ₺</td>
+                                        <td>@(string.IsNullOrEmpty(item.ParentPricingName) ? "-" : item.ParentPricingName)</td>
                                         <td>@item.PricingName</td>
                                         <td>@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
                                         <td>
@@ -105,6 +112,7 @@
                                                     data-address="@item.Address"
                                                     data-city="@item.City"
                                                     data-district="@item.District"
+                                                    data-parentpricing="@item.ParentPricingName"
                                                     data-pricing="@item.PricingName"
                                                     data-date="@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")"
                                                     data-ispay="False">
@@ -123,6 +131,7 @@
     </div>
 </div>
 
+@* --- MODAL --- *@
 <div class="modal fade" id="detayModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -142,7 +151,8 @@
                     <div class="col-md-6">
                         <h6 class="text-primary border-bottom pb-2">Sipariş Bilgileri</h6>
                         <p><strong>Tutar:</strong> <span id="m_price"></span> ₺</p>
-                        <p><strong>Paket Kodu:</strong> <span id="m_pricing"></span></p>
+                        <p><strong>Kategori:</strong> <span id="m_parentpricing"></span></p>
+                        <p><strong>Paket Bilgisi:</strong> <span id="m_pricing"></span></p>
                         <p><strong>Tarih:</strong> <span id="m_date"></span></p>
                         <p><strong>Durum:</strong> <span id="m_status"></span></p>
                     </div>
@@ -164,11 +174,10 @@
 
 <script>
     $(document).ready(function () {
-        // .btn-detay sınıfına sahip herhangi bir butona tıklandığında
         $(".btn-detay").click(function () {
-
-            // 1. Tıklanan butonun üzerindeki verileri (data-*) al
             var btn = $(this);
+
+            // Verileri al
             var fullname = btn.data("fullname");
             var phone = btn.data("phone");
             var email = btn.data("email");
@@ -178,11 +187,12 @@
             var address = btn.data("address");
             var city = btn.data("city");
             var district = btn.data("district");
+            var parentPricing = btn.data("parentpricing"); // Yeni eklendi
             var pricing = btn.data("pricing");
             var date = btn.data("date");
             var isPay = btn.data("ispay");
 
-            // 2. Modal içindeki alanlara bu verileri yaz
+            // Modal alanlarına yaz
             $("#m_fullname").text(fullname);
             $("#m_phone").text(phone);
             $("#m_email").text(email);
@@ -192,17 +202,16 @@
             $("#m_address").text(address);
             $("#m_city").text(city);
             $("#m_district").text(district);
+            $("#m_parentpricing").text(parentPricing || "-"); // Yeni eklendi
             $("#m_pricing").text(pricing);
             $("#m_date").text(date);
 
-            // 3. Ödeme durumuna göre rozet (badge) ayarla
             if (isPay === "True" || isPay === true) {
                 $("#m_status").html('<span class="badge bg-success">Ödeme Başarılı</span>');
             } else {
                 $("#m_status").html('<span class="badge bg-danger">Ödeme Bekleniyor / Başarısız</span>');
             }
 
-            // 4. Modalı aç
             $("#detayModal").modal("show");
         });
     });

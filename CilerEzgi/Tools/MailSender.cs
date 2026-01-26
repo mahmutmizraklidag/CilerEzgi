@@ -6,10 +6,10 @@ public class MailSender:IMailSender
 {
 
     // SMTP bilgilerini config veya appsettings.json'dan almak daha güvenli olur
-    private readonly string _smtpServer = "";
-    private readonly int _smtpPort = 0;
-    private readonly string _fromEmail = "";
-    private readonly string _password = "";
+    private readonly string _smtpServer = "webmail.kimdemisyapamazsin.com";
+    private readonly int _smtpPort = 465;
+    private readonly string _fromEmail = "satis@kimdemisyapamazsin.com";
+    private readonly string _password = "EDKuTQfAxxx39Mv";
 
     public async Task SendMailAsync(string toEmail, string subject, string htmlBody,string name)
     {
