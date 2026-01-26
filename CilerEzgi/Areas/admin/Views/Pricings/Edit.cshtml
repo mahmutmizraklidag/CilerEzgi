@@ -25,11 +25,20 @@
                         <span asp-validation-for="Title" class="text-danger small"></span>
                     </div>
 
+                    <div class="col-md-12">
+                        <label asp-for="ParentId" class="form-label fw-semibold"></label>
+                        <select asp-for="ParentId" class="form-select" asp-items="ViewBag.ParentId">
+                            <option value="0">Ana Faaliyet Alanı</option>
+                        </select>
+                        <span asp-validation-for="ParentId" class="text-danger small"></span>
+                    </div>
+
                     <div class="col-md-6">
                         <label asp-for="Price" class="form-label fw-semibold"></label>
                         <input asp-for="Price" class="form-control" placeholder="Fiyat" />
                         <span asp-validation-for="Price" class="text-danger small"></span>
                     </div>
+
                     <div class="col-md-12">
                         <label asp-for="Description" class="form-label fw-semibold"></label>
                         <textarea id="AboutEditor" asp-for="Description" class="form-control" rows="4" placeholder="Paket içeriğini düzenleyin"></textarea>
