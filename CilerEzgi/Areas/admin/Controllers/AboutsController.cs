@@ -41,11 +41,12 @@ namespace CilerEzgi.Areas.admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(About about ,IFormFile? Image)
+        public async Task<IActionResult> Create(About about ,IFormFile? Image,IFormFile? MobileImage)
         {
             if (ModelState.IsValid)
             {
                 if (Image is not null) about.Image = await FileHelper.FileLoaderAsync(Image);
+                if (MobileImage is not null) about.MobileImage = await FileHelper.FileLoaderAsync(MobileImage);
                 _context.Add(about);
                 await _context.SaveChangesAsync();
 
@@ -75,7 +76,7 @@ namespace CilerEzgi.Areas.admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,About about, IFormFile? Image)
+        public async Task<IActionResult> Edit(int id,About about, IFormFile? Image, IFormFile? MobileImage)
         {
             if (id != about.Id)
             {
@@ -97,7 +98,15 @@ namespace CilerEzgi.Areas.admin.Controllers
                 }
                 dbAbout.Image = await FileHelper.FileLoaderAsync(Image);
             }
-           
+            if (MobileImage is not null)
+            {
+                if (!string.IsNullOrEmpty(dbAbout.MobileImage))
+                {
+                    FileHelper.DeleteFile(dbAbout.MobileImage);
+                }
+                dbAbout.MobileImage = await FileHelper.FileLoaderAsync(MobileImage);
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Abouts", new { area = "Admin" });
@@ -133,7 +142,11 @@ namespace CilerEzgi.Areas.admin.Controllers
                 {
                     FileHelper.DeleteFile(about.Image);
                 }
-               
+                if (!string.IsNullOrEmpty(about.MobileImage))
+                {
+                    FileHelper.DeleteFile(about.MobileImage);
+                }
+
                 _context.Abouts.Remove(about);
             }
 

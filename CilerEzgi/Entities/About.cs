@@ -11,5 +11,7 @@ namespace CilerEzgi.Entities
         public string Description { get; set; }
         [Display(Name = "Görsel")]
         public string? Image { get; set; }
+        [Display(Name = "Mobil Görsel")]
+        public string? MobileImage { get; set; }
     }
 }

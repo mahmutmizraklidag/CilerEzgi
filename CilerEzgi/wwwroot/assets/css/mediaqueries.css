@@ -2216,11 +2216,16 @@
     .get_in_touch_section .get_in_touch_video .video_img img {
         width: 110px;
     }
-    .get_in_touch_section::after {
-        width: 100%;
+   .get_in_touch_section::after {
+        width: 100%;          /* Geniþliði tam yap */
+        height: 600px;        /* Mobilde resim için sabit bir yükseklik ver (Ýsteðe göre artýrýp azaltabilirsin) */
+        position: relative;   /* Absolute yerine relative yap ki formun altýna insin */
         display: block;
-        position: relative;
-        background-position: center;
+        margin-top: 30px;     /* Form ile resim arasýna boþluk */
+        
+        /* Absolute pozisyonlarý sýfýrla */
+        right: auto;
+        top: auto;
     }
 
     .pricing_plans_section {

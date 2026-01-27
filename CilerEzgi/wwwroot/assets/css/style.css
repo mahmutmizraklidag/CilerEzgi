@@ -828,16 +828,20 @@ p{
     left: 0;
     position: absolute;
 }
-.get_in_touch_section::after {
-    background: url(/img/contact.png);
-    content: "";
-    width: 50%;
-    height: 806px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: -1;
-}
+    .get_in_touch_section::after {
+        background: url(/img/contact.png);
+        content: "";
+        width: 50%;
+        height: 100%; /* Yüksekliði section ile eþitlemek daha saðlýklýdýr, ama 806px de kalabilir */
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: -1;
+        /* Resim Tekrarýný ve Boyutunu Kontrol Eden Kodlar */
+        background-repeat: no-repeat; /* Resmi tekrar etme */
+        background-size: cover; /* Resmi alana tam sýðdýr (gerekirse kýrpar) */
+        background-position: center; /* Resmi ortala */
+    }
 .get_in_touch_content h5 {
     text-transform: uppercase;
     color: var(--e-global-color-secondary);
@@ -1349,9 +1353,19 @@ textarea {
 .subscribe_background_image .subscribe_image {
     position: absolute;
     bottom: -125px;
-    right: -256px;
+    right: -280px;
 }
-
+/* Sadece mobil cihazlar için (genellikle 768px altý tablet ve telefonlar) */
+@media (max-width: 767.98px) {
+    .services_box_content .services_box_upper_portion figure {
+        /* Geniþliði konteynerin %70'i ile sýnýrla. 
+           Ýhtiyaca göre %60 veya %80 yapabilirsin. */
+        width: 70%;
+        /* Resmi yatayda ortalamak için. 
+           !important, mb-0 class'ýný ezmek için gerekebilir */
+        margin: 0 auto !important;
+    }
+}
 /* Home Page Footer Section Style */
 
 .footer-section{
